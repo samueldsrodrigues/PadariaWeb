@@ -39,7 +39,7 @@
 		<repository>
 			<id>prime-repo</id>
 			<name>Prime Technology Maven Repository</name>
-			<url>http://repository.primefaces.org/</url>
+			<url>https://repository.primefaces.org/</url>
 		</repository>
 		<repository>
 			<id>maven</id>
@@ -50,7 +50,6 @@
 			<id>JBoss Repository</id>
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
-
 	</repositories>
 	
 	<dependencies>
@@ -190,14 +189,14 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.6</version>
+			<version>1.18.38</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.spec.javax.servlet.jstl</groupId>
-			<artifactId>jboss-jstl-api_1.2_spec</artifactId>
-			<version>1.2.0.Final</version>
-			<scope>provided</scope>
+		    <artifactId>jboss-jstl-api_1.2_spec</artifactId>
+		    <version>1.1.2.Final</version>
+<!--			<scope>provided</scope>-->
 		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
@@ -233,7 +232,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>6.1.0</version>
+			<version>7.0.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-logging</groupId>

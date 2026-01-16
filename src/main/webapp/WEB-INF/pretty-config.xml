@@ -1,0 +1,95 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+ 
+ 	<!-- ADMINISTRAÇÃO -->
+ 	<url-mapping id="grupo-loja-listar">
+		<pattern value="/grupo-loja" />
+		<view-id value="/pages/admin/grupo-loja/listar.xhtml" />
+	</url-mapping>
+ 	<url-mapping id="loja-listar">
+		<pattern value="/loja" />
+		<view-id value="/pages/admin/loja/listar.xhtml" />
+	</url-mapping>
+	<url-mapping id="usuario-listar">
+		<pattern value="/usuario" />
+		<view-id value="/pages/admin/usuario/listar.xhtml" />
+	</url-mapping>
+	
+	<!-- RESPONSAVEL -->
+	<url-mapping id="recuperarSenha">
+		<pattern value="/recuperarSenha" />
+		<view-id value="/pages/public/recuperarSenha.xhtml" />
+	</url-mapping>
+ 
+ 	<!-- RESPONSAVEL -->
+ 	<url-mapping id="responsavel-listar">
+		<pattern value="/responsavel" />
+		<view-id value="/pages/responsavel/responsavel.xhtml" />
+	</url-mapping>
+ 
+ 	<!-- CRIANCA -->
+ 	<url-mapping id="crianca-listar">
+		<pattern value="/crianca" />
+		<view-id value="/pages/crianca/crianca.xhtml" />
+	</url-mapping>
+ 
+ 	<!-- VISITA -->
+ 	<url-mapping id="visita-listar">
+		<pattern value="/visita" />
+		<view-id value="/pages/visitas/visitas.xhtml" />
+	</url-mapping>
+ 	
+ 	<!-- EVENTOS -->
+ 	 <url-mapping id="evento-listar">
+		<pattern value="/evento" />
+		<view-id value="/pages/eventos/eventos.xhtml" />
+	</url-mapping>
+ 	
+ 	<!-- PACOTES -->
+ 	 <url-mapping id="pacote-listar">
+		<pattern value="/pacote" />
+		<view-id value="/pages/pacotes/pacotes.xhtml" />
+	</url-mapping>
+ 	
+ 	<!-- FINANCEIRO -->
+ 	
+ 	<!-- AUDITORIA -->
+ 	 <url-mapping id="auditoria-listar">
+		<pattern value="/auditoria" />
+		<view-id value="/pages/auditoria/auditoria.xhtml" />
+	</url-mapping>
+	
+	<!-- CONSULTAS -->
+	<url-mapping id="visita-hora-listar">
+		<pattern value="/consultas/visita-hora" />
+		<view-id value="/pages/consultas/visitas-hora.xhtml" />
+	</url-mapping>
+	<url-mapping id="visita-convenio-listar">
+		<pattern value="/consultas/visita-convenio" />
+		<view-id value="/pages/consultas/visitas-convenio.xhtml" />
+	</url-mapping>
+	<url-mapping id="visita-historico-listar">
+		<pattern value="/consultas/visita-historico" />
+		<view-id value="/pages/consultas/visitas-historico.xhtml" />
+	</url-mapping>
+	<url-mapping id="visita-idade-listar">
+		<pattern value="/consultas/visita-idade" />
+		<view-id value="/pages/consultas/visitas-idade.xhtml" />
+	</url-mapping>
+	<url-mapping id="visita-genero-listar">
+		<pattern value="/consultas/visita-genero" />
+		<view-id value="/pages/consultas/visitas-genero.xhtml" />
+	</url-mapping>
+	<url-mapping id="arrecadacao-visita-listar">
+		<pattern value="/consultas/arrecadacao-visita" />
+		<view-id value="/pages/consultas/arrecadacao-visitas.xhtml" />
+	</url-mapping>
+	<url-mapping id="fechamento-caixa-listar">
+		<pattern value="/consultas/fechamento-caixa" />
+		<view-id value="/pages/consultas/fechamento-caixa.xhtml" />
+	</url-mapping>
+	<url-mapping id="receita-listar">
+		<pattern value="/consultas/receita" />
+		<view-id value="/pages/consultas/receitas.xhtml" />
+	</url-mapping>
+</pretty-config>
