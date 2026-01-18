@@ -13,18 +13,17 @@
 					http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 					http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 					http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+					
+				
+	<context:annotation-config /> 
 
-<!--  	<context:annotation-config /> 
-
-	<context:component-scan base-package="br.com.brinquedoteca">
-		<context:include-filter type="regex" expression="br.com.brinquedoteca.dao.*Dao" />
-		<context:include-filter type="regex" expression="br.com.brinquedoteca.dao.impl.*Dao" />
-		<context:include-filter type="regex" expression="br.com.brinquedoteca.service.*Service" />
-		<context:include-filter type="regex" expression="br.com.brinquedoteca.service.impl.*Service" />
+	<context:component-scan base-package="br.com.padariaweb">
+		<context:include-filter type="regex" expression="br.com.padariaweb.dao.*Dao" />
+		<context:include-filter type="regex" expression="br.com.padariaweb.dao.impl.*Dao" />
+		<context:include-filter type="regex" expression="br.com.padariaweb.service.*Service" />
+		<context:include-filter type="regex" expression="br.com.padariaweb.service.impl.*Service" />
         <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/> 
-		
-	</context:component-scan> -->
-	
+	</context:component-scan>
 	
 	<bean id="transactionManagerPadrao" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
@@ -49,10 +48,10 @@
 		</property>
 	</bean>
 			
-<!--  	<tx:annotation-driven transaction-manager="transactionManagerPadrao" /> -->
+ 	<tx:annotation-driven transaction-manager="transactionManagerPadrao" />
 	
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="brinquedotecaDataSource" />
+		<property name="dataSource" ref="padariaWebDataSource" />
 		<property name="jpaPropertyMap" ref="jpaPropertyMap" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -62,30 +61,15 @@
 			</bean>
 		</property>
 		
-		<property name="packagesToScan" value="br.com.brinquedoteca.entity" />
+		<property name="packagesToScan" value="br.com.padariaweb.entity" />
 	</bean>
 	
-<!-- 	<jee:jndi-lookup id="brinquedotecaDataSource" jndi-name="jdbc/BrinquedotecaDS" /> -->
-	
-<!-- 	<bean id="brinquedotecaDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
-<!--     	<property name="jndiName" value="jdbc/BrinquedotecaDS"/> -->
-<!-- 	</bean> -->
-	
-	<bean id="brinquedotecaDataSource"
+	<bean id="padariaWebDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		 	
-	<!-- 	<property name="url" value="jdbc:postgresql://pgsql.controledebrinquedoteca.com.br:5432/controledebrinquedoteca" />
-		<property name="username" value="controledebrinquedoteca" />
-		<property name="password" value="brinquedoteca2016" /> -->
-
-		<!-- TSE -->
-<!-- 		<property name="url" value="jdbc:postgresql://localhost:5432/controledebrinquedoteca" />
-		<property name="username" value="postgres" />
-		<property name="password" value="adm123" /> -->
 		
 		<!-- House -->
-		<property name="url" value="jdbc:postgresql://localhost:5432/brinquedoteca" />
+		<property name="url" value="jdbc:postgresql://localhost:5432/padariaweb" />
 		<property name="username" value="postgres" />
 		<property name="password" value="postgres" />
 		
@@ -124,7 +108,7 @@
       </http>
 
 
-      <bean id="customUserAuthenticationProvider" class="br.com.brinquedoteca.bean.LoginBean"/>
+      <bean id="customUserAuthenticationProvider" class="br.com.padariaweb.bean.LoginBean"/>
 
       <authentication-manager id="userITAuthencticationManager" xmlns="http://www.springframework.org/schema/security">
               <authentication-provider ref="customUserAuthenticationProvider"/>
