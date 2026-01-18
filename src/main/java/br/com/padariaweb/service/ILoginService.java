@@ -1,0 +1,8 @@
+package br.com.padariaweb.service;
+
+import br.com.padariaweb.entity.Funcionario;
+
+public interface ILoginService extends IGenericoCRUDManager<Funcionario, Integer>{
+
+	public Funcionario verificaFuncionario(Funcionario func);
+}
