@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+    <composite:attribute name="imgTitulo" required="false" />
+	<composite:attribute name="titulo" required="true" />
+	<composite:attribute name="primeiro" required="true" />
+	<composite:attribute name="imgPrimeiro" required="false" />
+	<composite:attribute name="segundo" required="false" />
+	<composite:attribute name="imgSegundo" required="false" />
+	<composite:attribute name="terceiro" required="false" />
+	<composite:attribute name="imgTerceiro" required="false" />
+	<composite:attribute name="quarto" required="false" />
+	<composite:attribute name="actionBotao" method-signature="java.lang.String action()"/>
+	<composite:attribute name="tituloBotao" required="false"/>
+	<composite:attribute name="botaoModal" required="false"/>
+	<composite:attribute name="idBotaoModalIncluir" required="false"/>
+</composite:interface>
+
+<composite:implementation>
+	<div class="row wrapper border-bottom white-bg page-heading">
+		 <div class="col-lg-10">
+			<h2><i class="fa #{cc.attrs.imgTitulo}"/>  #{cc.attrs.titulo}</h2>
+			<ol class="breadcrumb">
+				<li><i class="fa #{cc.attrs.imgPrimeiro}"/><a href="/PadariaWeb/index.xhtml"> #{cc.attrs.primeiro}</a></li>
+				<li><i class="fa #{cc.attrs.imgSegundo}"/> #{cc.attrs.segundo}</li>
+				<h:panelGroup layout="block" rendered="#{not empty cc.attrs.terceiro}"><li><i class="fa #{cc.attrs.imgTerceiro}"/><strong> #{cc.attrs.terceiro}</strong></li></h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{not empty cc.attrs.quarto}"><li><strong> #{cc.attrs.quarto}</strong></li></h:panelGroup>
+			</ol>
+		</div>
+		<h:panelGroup layout="block" rendered="#{not empty cc.attrs.actionBotao}"> 
+			<div class="col-sm-8">
+	            <div class="title-action">
+	                <h:commandLink class="btn btn-primary" action="#{cc.attrs.actionBotao}">
+	                	<i class="fa fa-plus-square"/> #{cc.attrs.tituloBotao}
+	                </h:commandLink>
+	            </div>
+	        </div>
+        </h:panelGroup>
+	</div>
+</composite:implementation>
+
+</html>
+
+

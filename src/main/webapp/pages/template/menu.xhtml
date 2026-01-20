@@ -1,0 +1,35 @@
+<h:panelGroup xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:p="http://primefaces.org/ui">
+	<nav class="navbar-default navbar-static-side ng-scope" role="navigation" style="background: #f8f8f9;">
+		<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%; /* border-left: 4px solid #19aa8d; */">
+			<h:form prependId="false">
+			
+				<div id="layout-desktop" class="sidebar-collapse" style="overflow: hidden; width: auto; height: 100%;">
+					<ul class="nav metismenu" id="side-menu">
+						
+						<div class="hr-line-dashed"></div>
+						<div class="hr-line-dashed"></div>
+
+						<!-- Menu -->
+						<li class="active"><h:commandLink action="#{consultasListarBean.redirectInicio}"> <i class="fa fa-home" /> <span class="nav-label">Início</span></h:commandLink></li>
+							
+						<!-- Módulos de Acesso -->
+	                    <li><h:commandLink action="#{consultasListarBean.redirectVendas}"> <i class="fa fa-tag"/>				<span class="nav-label">Vendas</span></h:commandLink></li>
+	                    
+	                    <li><h:commandLink action="#{consultasListarBean.redirectEventos}"> <i class="fa fa-check-square-o" />	<span class="nav-label">Produtos</span></h:commandLink></li>
+	                    
+	                    <li><h:commandLink action="#{consultasListarBean.redirectEstoque}"> <i class="fa fa-list-ol" />			<span class="nav-label">Encomendas</span></h:commandLink></li>
+	                    
+	                     <li><h:commandLink action="#{consultasListarBean.redirectFuncionarios}"> <i class="fa fa-users" />			<span class="nav-label">Funcionários</span></h:commandLink></li>
+	                    	
+					</ul>
+				</div>
+				
+				<div class="hr-line-dashed"></div>
+				
+
+			</h:form>
+		</div>
+	</nav>
+</h:panelGroup>

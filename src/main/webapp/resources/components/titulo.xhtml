@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="nome" required="true" />
+	<composite:attribute name="icone" />
+	
+</composite:interface>
+
+<composite:implementation>
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="area-top clearfix">
+			<div class="pull-left header">
+				<h3 class="title">
+					<i class="fa ${cc.attrs.icone eq null ? 'fa-user' : cc.attrs.icone} fa-fw" /> #{cc.attrs.nome}
+				</h3>
+			</div>
+		</div>
+	</div>
+</composite:implementation>
+
+</html>
+
+
