@@ -6,7 +6,7 @@ import br.com.padariaweb.entity.Funcionario;
 
 
 @Repository
-public interface ILoginDao extends IGenericoCRUDDAO<Funcionario, Integer>{
+public interface ILoginDao extends IGenericoCRUDDAO<Funcionario, Long>{
 	
 	public Funcionario verificaFuncionario(Funcionario user);
 }
