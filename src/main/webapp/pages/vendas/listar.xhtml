@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:component="http://xmlns.jcp.org/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/pages/template/template.xhtml">
+	<ui:define name="body">
+		<!-- Script -->
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//datatable with pagination
+				var tableResult = $('#resultadoDT').DataTable({
+					"bInfo": false,
+					"destroy": true,
+					"language": {
+					        "url": "../../resources/i18n/pt_BR.json"
+					}/*,
+					dom: 'lfBrtip',
+ 			        buttons: [
+			            'print', 'excel', 'pdf'
+			        ] */
+				});
+			});
+			
+			$(window).bind("load", function() {
+				setCalendar2Dates();
+			});
+		</script>
+	
+		<!-- Header -->
+		<div>
+			<component:breadcrumb titulo="Vendas" imgTitulo="fa fa-book"
+				primeiro="Início" segundo="Vendas" imgPrimeiro="fa fa-home" imgSegundo="fa fa-book"/>
+		</div>
+
+		<h:form prependId="false">
+			<div class="row">
+				<div class="form-horizontal">
+					<div class="form-group" style="padding-left:15px; padding-top: 10px;">
+						<h:panelGroup id="grupoLojas-lojas">
+							<!-- Combo de Escolha de Grupo de Lojas -->
+							<h:panelGroup id="grupoLojas" layout="block" styleClass="wrapper wraper-content" rendered="#{usuarioListarBean.userIsRoot}">
+								<div class="col-lg-3">
+									<h:selectOneMenu value="#{appBean.grupoLoja}" styleClass="chzn-select hidden-xs form-control m-b" converter="entityConverter">
+										<f:selectItem itemLabel="[Selecione um Grupo de Lojas]" noSelectionOption="true" />
+										<f:selectItems value="#{appBean.grupoLojasGestor}" var="grupo" itemLabel="#{grupo.dsNome}" itemLabelEscaped="true"/>
+										<p:ajax event="change" process="@this" update="grupoLojas-lojas" listener="#{appBean.grupoLojasChange}" oncomplete="select2()"/>
+									</h:selectOneMenu>
+								</div>
+							</h:panelGroup>
+							
+							<!-- Combo de Escolha das Lojas -->
+							<h:panelGroup id="panelLojas" layout="block" styleClass="wrapper wraper-content" rendered="#{appBean.gestor or appBean.isUserRoot()}">
+								<div class="col-lg-3">
+									<h:selectOneMenu styleClass="chzn-select hidden-xs form-control m-b" value="#{appBean.loja}" converter="entityConverter">
+										<f:selectItem itemLabel="[Selecione uma Loja]" noSelectionOption="true" />
+										<f:selectItems value="#{appBean.lojasGestor}" var="l" itemLabel="#{l.dsNome}" itemValue="#{l}" />
+										<f:ajax render="infSync"/>
+									</h:selectOneMenu>
+						        </div>
+						    </h:panelGroup>
+						</h:panelGroup>
+					</div>
+				</div>
+			</div>
+		    
+			<div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 5px !important;">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<i class="fa fa-filter fa-fw"/> Filtro
+								<span>
+									<a class="collapse-link" style="color: #2f4050; float: right;"><i class="fa fa-chevron-up"></i></a>
+	                            </span>
+							</div>
+							
+							<!-- Filtro de Pesquisa -->
+							<div class="ibox-content">
+								<div class="row">
+									<div class="form-horizontal">
+										<div class="form-group" >
+											<label class="col-lg-1 control-label">Data Inicial</label>
+											<h:panelGroup styleClass="col-sm-2">
+												<h:inputText id="dataInicioCompleta" value="#{vendasListarBean.dataInicio}" styleClass="form-control" converter="conversorData" />
+											</h:panelGroup>
+											<label class="col-lg-1 control-label">Data Final</label>
+											<h:panelGroup styleClass="col-sm-2">
+												<h:inputText id="dataFimCompleta" value="#{vendasListarBean.dataFim}" styleClass="form-control" converter="conversorData" />
+											</h:panelGroup>
+										</div>
+										<div class="form-group" >
+											<label class="col-lg-1 control-label">Grupo Produto</label>
+											<div class="col-lg-3">
+												<h:selectOneMenu styleClass="chzn-select hidden-xs form-control m-b" value="#{vendasListarBean.filtroGrupo}" converter="entityConverter">
+													<f:selectItem itemLabel="[Selecione]" noSelectionOption="true" />
+													<f:selectItems value="#{vendasListarBean.gruposProduto}" var="grupo" itemLabel="#{grupo.dscDescricao}"/>
+												</h:selectOneMenu>
+									        </div>
+									        <label class="col-lg-1 control-label">Produto</label>
+											<div class="col-lg-4">
+												<h:inputText value="#{vendasListarBean.filtro.produto.dscProduto}" styleClass="form-control"
+													 placeholder="Insira o nome de um produto a ser pesquisado" title="Insira o nome de um produto a ser pesquisado" converter="conversorToUpperCase"/>
+											</div>
+										</div>
+										<div class="hr-line-dashed"></div>
+										<!-- Ações -->
+										<div class="form-group">											
+											<div style="margin-left: 4%;">
+												<h:commandLink styleClass="btn btn-primary" action="#{vendasListarBean.pesquisar}">
+													<i class="fa fa-search fa-fw"></i> Pesquisar
+												</h:commandLink>
+												<h:commandLink styleClass="btn btn-default" style="margin-left: 15px" action="#{vendasListarBean.limpar}">
+													<i class="fa fa-trash-o fa-fw"></i> Limpar
+												</h:commandLink>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Tabelas de Resultado -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<div class="form-group">
+								<span class="title" style="font-size: 16px; font-weight: 400;">Resultado</span>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div class="table-responsive">
+									<h:panelGroup class="panel-body" id="dataTable" layout="block">
+										 <h:dataTable var="vp" value="#{vendasListarBean.vendasProdutos}" id="resultadoDT"
+											styleClass="table table-striped table-bordered table-hover dataTables-examplee" >
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Código Venda</f:facet>
+												<h:outputText value="#{vp.codVenda}" />
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Data</f:facet>
+												<h:outputText value="#{vp.dtVenda}" converter="conversorData"/>
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Hora</f:facet>
+												<h:outputText value="#{vp.hrVenda}"/>
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Código Produto</f:facet>
+												<h:outputText value="#{vp.produto.codProduto}" />
+											</h:column>
+											<h:column headerClass="col-lg-2">
+												<f:facet name="header">Produto</f:facet>
+												<h:outputText value="#{vp.produto.dscProduto}" converter="conversorToUpperCase"/>
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Qtd</f:facet>
+												<h:outputText value="#{vp.numQtdVendido} #{vp.produto.unidadeProduto.sigla}" />
+											</h:column>
+											<h:column headerClass="col-md-1">
+												<f:facet name="header">Valor</f:facet>
+												<h:outputText value="R$ #{vp.vlVenda}" >
+   											  		<f:convertNumber minFractionDigits="2" locale="pt_BR" />												
+												</h:outputText>
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Desconto %</f:facet>
+												<h:outputText value="#{vp.vlDescontoVenda}" />
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Usuário</f:facet>
+												<h:outputText value="#{vp.dscUsuario}" converter="conversorToUpperCase"/>
+											</h:column>
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Grupo</f:facet>
+												<h:outputText value="#{vp.produto.grupoProduto.dscDescricao}" converter="conversorToUpperCase"/>
+											</h:column>
+									<!-- 	<h:column headerClass="col-lg-1">
+												<f:facet name="header">Qtd Anterior Estoque</f:facet>
+												<h:outputText value="#{}" />
+											</h:column> -->
+											<h:column headerClass="col-lg-1">
+												<f:facet name="header">Venda Cancelada</f:facet>
+												<h:outputText value="NÃO" rendered="#{vp.isVendaCancelada eq 0}"/>
+												<h:outputText value="SIM" rendered="#{vp.isVendaCancelada eq 1}"/>
+											</h:column>
+										</h:dataTable> 
+									</h:panelGroup>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Resources -->
+				<link rel="stylesheet" href="#{request.contextPath}/resources/css/brinquedoteca.css" />
+				
+				<h:outputScript library="js" name="bootstrap-datepicker.js" />
+				<h:outputScript library="js" name="jquery.maskedinput.js" />
+
+				<script>
+				/*<![CDATA[*/
+					$(document).ready(function() {
+						setCalendar2Dates();
+					});
+
+					function setCalendar2Dates(){
+						$("#dataInicioCompleta").datepicker();
+						$("#dataInicioCompleta").mask("99/99/9999");
+
+						$("#dataFimCompleta").datepicker();
+						$("#dataFimCompleta").mask("99/99/9999");
+					};
+
+				/*]]>*/
+				</script>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
