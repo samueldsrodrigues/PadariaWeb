@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.padariaweb.entity.Funcionario;
 import br.com.padariaweb.exception.ValidacaoException;
 
-public interface IFuncionarioService extends IGenericoCRUDManager<Funcionario, Integer> {
+public interface IFuncionarioService extends IGenericoCRUDManager<Funcionario, Long> {
 
 	public List<Funcionario> pesquisarFuncionario(Funcionario filtro, Integer first, Integer maxPerPage);
 
