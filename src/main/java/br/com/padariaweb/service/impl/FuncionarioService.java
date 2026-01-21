@@ -14,7 +14,7 @@ import br.com.padariaweb.util.Util;
 
 @Service
 @Transactional
-public class FuncionarioService extends GenericoCRUDManager<Funcionario, Integer> implements IFuncionarioService {
+public class FuncionarioService extends GenericoCRUDManager<Funcionario, Long> implements IFuncionarioService {
 
 	@Autowired
 	IFuncionarioDao funcionarioDao;
@@ -37,7 +37,7 @@ public class FuncionarioService extends GenericoCRUDManager<Funcionario, Integer
 				// Caso seja alteracao de usuarrio
 				|| (funcionario.getSqFuncionario() != null && !funcionarios.isEmpty()
 						&& !funcionario.getSqFuncionario().equals(funcionarios.get(0).getSqFuncionario())))
-			throw new ValidacaoException("E-mail já cadastrado na base de dados.");
+			throw new ValidacaoException("Funcionário já cadastrado na base de dados.");
 
 		if (funcionario.getSqFuncionario() == null) {
 			String senha = Util.gerarStringAleatoria();
@@ -51,7 +51,7 @@ public class FuncionarioService extends GenericoCRUDManager<Funcionario, Integer
 			funcionarioDao.save(funcionario);
 	}
 
-	public Funcionario pesquisarFuncionario(Integer funcionarioAlteracao) {
+	public Funcionario pesquisarFuncionario(Long funcionarioAlteracao) {
 		Funcionario u = (Funcionario) funcionarioDao.findById(Funcionario.class, funcionarioAlteracao);
 		funcionarioDao.evict(u);
 		return u;

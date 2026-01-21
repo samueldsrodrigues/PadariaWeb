@@ -13,7 +13,7 @@ import br.com.padariaweb.util.Util;
 
 @Service
 @Transactional
-public class LoginService extends GenericoCRUDManager<Funcionario, Integer> implements  ILoginService{
+public class LoginService extends GenericoCRUDManager<Funcionario, Long> implements  ILoginService{
 
 	@Autowired ILoginDao loginDao;
 	
