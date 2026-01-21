@@ -1,5 +1,7 @@
 package br.com.padariaweb.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,12 +16,14 @@ import lombok.Setter;
 @Entity
 @Table(name = "cargo", schema = "public")
 @EqualsAndHashCode(of = { "sqCargo" })
-public class Cargo {
+public class Cargo implements Serializable {
+
+	private static final long serialVersionUID = -5481530169865851872L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "sq_cargo", unique = true, nullable = false)
-	private @Getter @Setter Integer sqCargo;
+	private @Getter @Setter Long sqCargo;
 	
 	@Column(name = "nome", length = 50)
 	private @Getter @Setter String nome;
