@@ -8,18 +8,19 @@ import org.springframework.stereotype.Repository;
 
 import br.com.padariaweb.dao.IFuncionarioDao;
 import br.com.padariaweb.entity.Funcionario;
+import br.com.padariaweb.util.Util;
 
 @Repository
-public class FuncionarioDao extends GenericoCRUDDAOJPA<Funcionario, Integer> implements IFuncionarioDao {
+public class FuncionarioDao extends GenericoCRUDDAOJPA<Funcionario, Long> implements IFuncionarioDao {
 
 	public List<Funcionario> pesquisarFuncionario(Funcionario filtro, Integer first, Integer maxPerPage) {
 		return createCriteriaPesquisar(filtro, first, maxPerPage);
 	}
 
 	/*
-	 * public int countFuncionario(Funcionario filtro, Integer userIdLoja, Integer
-	 * userIdGrupoLoja, boolean isUserRoot) { Integer count = (Integer)
-	 * createCriteriaPesquisar(filtro, null, null, userIdLoja, userIdGrupoLoja,
+	 * public int countFuncionario(Funcionario filtro, Integer userSqLoja, Integer
+	 * userSqGrupoLoja, boolean isUserRoot) { Integer count = (Integer)
+	 * createCriteriaPesquisar(filtro, null, null, userSqLoja, userSqGrupoLoja,
 	 * isUserRoot) .setProjection(Projections.rowCount()) .uniqueResult(); return
 	 * count.intValue(); }
 	 */
@@ -27,7 +28,7 @@ public class FuncionarioDao extends GenericoCRUDDAOJPA<Funcionario, Integer> imp
 	@SuppressWarnings("unchecked")
 	private List<Funcionario> createCriteriaPesquisar(Funcionario filtro, Integer first, Integer maxPerPage) {
 		Criteria c = criteria();
-		c.createAlias("loja", "l");
+//		c.createAlias("nome", "f");
 
 		if (filtro.getSqFuncionario() != null)
 			c.add(Restrictions.eq("sqFuncionario", filtro.getSqFuncionario()));
@@ -37,6 +38,10 @@ public class FuncionarioDao extends GenericoCRUDDAOJPA<Funcionario, Integer> imp
 
 		if (filtro.getNome() != null && !filtro.getNome().isEmpty())
 			c.add(Restrictions.ilike("nome", '%' + filtro.getNome() + '%'));
+		
+		if(Util.isValido(filtro.getCargo()) && Util.isValido(filtro.getCargo().getSqCargo())){
+			c.add(Restrictions.eq("cargo", filtro.getCargo()));
+		}
 
 		if (first != null)
 			c.setFirstResult(first);
@@ -53,7 +58,7 @@ public class FuncionarioDao extends GenericoCRUDDAOJPA<Funcionario, Integer> imp
 			c.add(Restrictions.eq("email", filtro.getEmail().toLowerCase().trim()));
 
 		if (filtro.getSqFuncionario() != null)
-			c.add(Restrictions.ne("idFuncionario", filtro.getSqFuncionario()));
+			c.add(Restrictions.ne("sqFuncionario", filtro.getSqFuncionario()));
 
 		return c.list();
 	}

@@ -8,7 +8,7 @@ import br.com.padariaweb.entity.Funcionario;
 
 
 @Repository
-public class LoginDao extends GenericoCRUDDAOJPA<Funcionario, Integer> implements br.com.padariaweb.dao.ILoginDao{
+public class LoginDao extends GenericoCRUDDAOJPA<Funcionario, Long> implements br.com.padariaweb.dao.ILoginDao{
 	
 	public Funcionario verificaFuncionario(Funcionario func){
 		Criteria c = getSession().createCriteria(Funcionario.class);
