@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="titulo" required="true" />
+	<composite:attribute name="message" required="true" />
+	<composite:attribute name="idModal" required="true" />
+	<composite:attribute name="botaoConfirm" required="true" />
+	<composite:attribute name="action" method-signature="void action()" />
+</composite:interface>
+
+<composite:implementation>
+	<h:form>
+		<div class="modal inmodal sweet-alert showSweetAlert visible" id="#{cc.attrs.idModal}" tabindex="-1"
+			role="dialog" aria-hidden="true" style="display: block; margin-top: -170px;">
+			<div class="modal-dialog">
+				<div class="modal-content animated flipInY">
+					<div class="modal-body">
+						<div class="sa-icon sa-warning pulseWarning"
+							style="display: block;">
+							<span class="sa-body pulseWarningIns"></span> <span
+								class="sa-dot pulseWarningIns"></span>
+						</div>
+						<h2>#{cc.attrs.titulo}</h2>
+						<p style="display: block;">#{cc.attrs.message}</p>
+					</div>
+					<div class="modal-footer">
+						<div class="sa-button-container">
+							<button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+							<h:commandButton class="confirm" tabindex="1" value="#{cc.attrs.botaoConfirm}"
+								action="#{cc.attrs.action}"
+								onclick="$('#'+'#{cc.attrs.idModal}').modal('hide')"
+								style="display: inline-block; box-shadow: rgba(221, 107, 85, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset; background-color: rgb(221, 107, 85);"/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</composite:implementation>
+
+
+
+</html>
+
+

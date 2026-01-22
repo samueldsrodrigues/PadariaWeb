@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:components="http://xmlns.jcp.org/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+	<composite:interface>
+		<composite:attribute name="criancaSelecionada" required="true" />
+		<composite:attribute name="idModal" required="true" />
+	</composite:interface>
+	
+	<composite:implementation>	
+		<div class="modal fade" id="#{cc.attrs.idModal}" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+						<h4 class="modal-title">Pesquisar Criança</h4>
+					</div>
+					<h:form class="modal-body form-horizontal">
+						<!-- Filtro -->
+						<div class="container padded">
+							<div class="row">
+								<div class="box">
+									<div class="box-content">
+										<br />
+										<div class="form-group">
+											<label class="control-label col-sm-1">Criança</label>
+											<div class="col-sm-3">
+												<h:inputText value="#{criancaPesquisarBean.filtro.dscNome}" styleClass="form-control" maxlength="50"/>
+											</div>
+										</div>
+									</div>
+									<div class="form-actions">
+										<h:commandLink styleClass="btn btn-primary" action="#{criancaPesquisarBean.pesquisar}">
+											<i class="fa fa-search fa-fw"></i> Pesquisar
+											<p:ajax update="@form" process="@form"/>
+										</h:commandLink>
+										<span style="width: 10px;" />
+										<h:commandLink styleClass="btn btn-default" actionListener="#{criancaPesquisarBean.limpar}">
+											<i class="fa fa-trash-o fa-fw"></i> Limpar
+											<f:ajax render="@form" execute="@form" />
+										</h:commandLink>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Resultado -->
+						<h:dataTable value="#{criancaPesquisarBean.criancas}" var="cri" id="dtModelResult"
+							styleClass="table table-striped table-bordered" columnClasses="text-left, text-center, text-center, text-center" headerClass="text-center">
+							<h:column>
+								<f:facet name="header">Criança</f:facet>
+								<h:commandLink>
+									<f:setPropertyActionListener target="#{cc.attrs.criancaSelecionada}" value="#{cri}" />
+									#{cri.dscNome}
+								</h:commandLink>
+							</h:column>
+						</h:dataTable>
+						<components:paginador idDatatable="dtModelResult" dataModel="#{criancaPesquisarBean.criancas}" load="#{criancaPesquisarBean.load}" message="Crianças não encontradas" />							
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</composite:implementation>
+</html>

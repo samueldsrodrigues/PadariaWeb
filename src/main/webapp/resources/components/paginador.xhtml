@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://xmlns.jcp.org/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="idDatatable" required="true" />
+	<composite:attribute name="dataModel" required="true" />
+	<composite:attribute name="message" required="true" />
+	<composite:attribute name="load" required="true"
+		method-signature="void action()" />
+</composite:interface>
+
+<composite:implementation>
+	<div class="table-footer">
+		<!-- MENSAGEM DE DADOS NÃO ENCONTRADOS (TAMANHO 12)-->
+		<h:panelGroup layout="block" styleClass="dataTables_info" rendered="#{empty cc.attrs.dataModel or cc.attrs.dataModel.qtdPaginas eq 0}" style="float: left;">
+			<h:panelGroup layout="block" rendered="#{empty cc.attrs.message}">Nenhum registro encontrado</h:panelGroup>
+			<h:panelGroup layout="block" rendered="#{not empty cc.attrs.message}">#{cc.attrs.message}</h:panelGroup>
+		</h:panelGroup>
+	
+		<!-- INÍCIO BLOCO ESQUERDO ****************************************** (TAMANHO 2) -->
+		<h:panelGroup layout="block" styleClass="dataTables_info" rendered="#{cc.attrs.dataModel.qtdPaginas gt 0}" style="float: left;">
+			Página #{cc.attrs.dataModel.paginaAtual} de #{cc.attrs.dataModel.qtdPaginas}
+		</h:panelGroup>
+		
+		<!-- INÍCIO BLOCO DIREITO ****************************************** -->
+		<h:panelGroup layout="block" styleClass="dataTables_paginate paging_simple_numbers" rendered="#{cc.attrs.dataModel.qtdPaginas gt 0}">
+			<ul class="pagination">
+				<!-- Botão: página Anterior -->
+				<li class="paginate_button previous #{cc.attrs.dataModel.paginaAtual eq 1 ? 'disabled' : ''}">
+					<h:commandLink action="#{cc.attrs.load}" value="Anterior">
+						<f:setPropertyActionListener target="#{cc.attrs.dataModel.paginaAtual}" value="#{cc.attrs.dataModel.paginaAtual-1}"/>
+						<p:ajax update="@form" process="@this"/>
+					</h:commandLink>
+				</li>
+				
+				<ui:repeat var="pagina" value="#{cc.attrs.dataModel.numerosPaginas}">
+					<li class="paginate_button #{cc.attrs.dataModel.getStylePaginador(pagina)}">
+						<h:commandLink action="#{cc.attrs.load}" value="#{pagina}">
+							<f:setPropertyActionListener target="#{cc.attrs.dataModel.paginaAtual}" value="#{pagina}" />
+							<!-- <f:ajax render=":#{cc.attrs.idDatatable}"   /> -->
+							<p:ajax update="@form" process="@this" />
+						</h:commandLink>
+					</li>
+				</ui:repeat>
+				
+				<!-- Botão: Próxima página -->
+				<li class="paginate_button next #{cc.attrs.dataModel.paginaAtual eq cc.attrs.dataModel.qtdPaginas ? 'disabled' : ''}">
+					<h:commandLink action="#{cc.attrs.load}" value="Próximo">
+						<f:setPropertyActionListener target="#{cc.attrs.dataModel.paginaAtual}" value="#{cc.attrs.dataModel.paginaAtual+1}" />
+						<p:ajax update="@form"/>
+					</h:commandLink>
+				</li>
+			</ul>
+		</h:panelGroup>
+	</div>
+</composite:implementation>
+</html>
+
+
