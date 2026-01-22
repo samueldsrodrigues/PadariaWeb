@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://xmlns.jcp.org/jsf/composite/components">
+
+<ui:composition template="/pages/template/template.xhtml">
+	<ui:define name="body">
+	
+		<script>
+			$(document).ready(function() {
+				select2();
+			});
+		</script>			
+			
+		<!-- Header -->
+		<div>
+			<component:breadcrumb titulo="Funcionário" imgTitulo="fa fa-users"
+				primeiro="Início" segundo="Funcionário" terceiro="Alterar"
+				imgPrimeiro="fa fa-home" imgSegundo="fa fa-users"/>
+		</div>
+			
+		<div class="wrapper wrapper-content animated fadeInRight ecommerce" >
+			<div class="col-lg-12">
+				<div class="tabs-container">
+					<h:form prependId="false" enctype="multipart/form-data">
+						<ul class="nav nav-tabs">
+							<li class="active"><h:commandLink data-toggle="tab"
+									action="#tab-1" value="Informações Usuário" /></li>
+						</ul>
+						<div class="tab-content">
+							<div id="tab-1" class="tab-pane active">
+								<div class="panel-body">
+									<fieldset class="form-horizontal">
+										
+									</fieldset>
+								</div>
+							</div>
+						</div>
+						
+						<h:outputScript library="primefaces/fileupload" name="fileupload.js" />
+						<h:outputScript library="js" name="jquery.maskedinput.js" />
+						
+						<script>
+							$(document).ready(function() {
+								$("#dtNascimento").datepicker();
+								$("#dtNascimento").mask("99/99/9999");
+								var config = {
+									'.chosen-select' : {},
+									'.chosen-select-deselect' : {
+										allow_single_deselect : true
+									},
+									'.chosen-select-width' : {
+										width : "95%"
+									}
+								}
+								for ( var selector in config) {
+									$(selector).chosen(config[selector]);
+								}
+							});
+						</script>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

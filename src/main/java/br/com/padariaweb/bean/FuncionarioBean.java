@@ -45,9 +45,14 @@ public class FuncionarioBean extends AbstractView implements Serializable {
 	/* Informações do Usuário Logado */
 	private @Setter @Getter Long funcionarioSqCargo;
 
-//	@SuppressWarnings("unused")
-//	private static final String URL_PAGINA = "/pages/admin/funcionario/listar";
-//	private static final String URL_PAGINA_INCLUIR = "/pages/admin/funcionario/incluir";
+	@SuppressWarnings("unused")
+	private static final String URL_PAGINA = "/pages/funcionarios/listar";
+	private static final String URL_PAGINA_INCLUIR = "/pages/funcionarios/incluir";
+
+	
+	public String alterar() {
+		return redirect(URL_PAGINA_INCLUIR);
+	}
 	
 	@PostConstruct
 	public void init() {
@@ -79,22 +84,6 @@ public class FuncionarioBean extends AbstractView implements Serializable {
 
 	}
 
-//	public void buscarCargos() {
-//		lojas = lojaService.pesquisarCargoByGrupoCargo(filtroGrupoCargo);
-//	}
-//
-//	private boolean isFuncionarioAdministrador(Funcionario u) {
-//		for (Perfil perfil : u.getPerfis()) {
-//			if (perfil.getSgPerfil().equals("ADMINISTRADOR"))
-//				return true;
-//		}
-//		return false;
-//	}
-//
-//	public void load() {
-////			funcionarios.load();
-//	}
-
 	// Exclui usuário PERMANENTEMENTE
 	public void remover() throws ValidacaoException {
 		RequestContext context = RequestContext.getCurrentInstance();
@@ -107,4 +96,5 @@ public class FuncionarioBean extends AbstractView implements Serializable {
 
 	}
 
+	
 }
