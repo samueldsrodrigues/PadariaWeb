@@ -23,8 +23,7 @@
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="padding-top: 20px">
 			<div class="container" style="padding-top: 5px;">
 				<span> 
-					<p:graphicImage cache="false" styleClass="img-circle" height="38" width="38" rendered="#{appBean.usuarioLogado.biFoto ne null}" /> 
-					<p:graphicImage cache="false" library="img" name="user.png" styleClass="img-circle" height="38" width="38" rendered="#{appBean.usuarioLogado.biFoto eq null}" />
+					<p:graphicImage cache="false" library="img" name="user.png" styleClass="img-circle" height="38" width="38"  />
 					<strong class="font-bold" style="color: #ffffff">Carlos</strong>
 					<h:outputLink value="${request.contextPath}/logout.xhtml" style="color: #ffffff; float: right!important; margin-top: 10px;"><i class="fa fa-sign-out"></i> Sair</h:outputLink>
 				</span>
