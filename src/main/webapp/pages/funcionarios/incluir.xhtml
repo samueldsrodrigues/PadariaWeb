@@ -19,7 +19,7 @@
 		<!-- Header -->
 		<div>
 			<component:breadcrumb titulo="Funcionário" imgTitulo="fa fa-users"
-				primeiro="Início" segundo="Funcionário" terceiro="Alterar"
+				primeiro="Início" segundo="Funcionário" terceiro="Incluir"
 				imgPrimeiro="fa fa-home" imgSegundo="fa fa-users"/>
 		</div>
 			
@@ -35,7 +35,104 @@
 							<div id="tab-1" class="tab-pane active">
 								<div class="panel-body">
 									<fieldset class="form-horizontal">
+<!-- 										<h:panelGroup class="form-group" rendered="#{usuarioIncluirBean.usuario.biFoto ne null}"> -->
+<!-- 											<label class="col-lg-2 control-label">Foto Atual</label> -->
+<!-- 											<div class="m-b-md"> -->
+<!-- 												<p:graphicImage cache="false" id="icone" -->
+<!-- 													value="#{appBean.usuarioWriteFoto}" -->
+<!-- 													styleClass="img-circle circle-border" height="140" -->
+<!-- 													width="140" /> -->
+<!-- 											</div> -->
+<!-- 										</h:panelGroup> -->
 										
+<!-- 										Inserir Foto Usuário  -->
+<!-- 										<div class="form-group"> -->
+<!-- 											<label class="col-lg-2 control-label">Foto</label> -->
+<!-- 											<div class="col-lg-2"> -->
+<!-- 												<h:panelGroup layout="block" id="fileChoice">												 -->
+<!-- 													<span title="Escolha uma foto"> -->
+<!-- 														<h:inputFile value="#{usuarioIncluirBean.fotofile}" > -->
+<!-- 															<f:ajax render="@form" listener="#{usuarioIncluirBean.handleBlobUpload()}"/> -->
+<!-- 														</h:inputFile> -->
+<!-- 													</span> -->
+<!-- 												</h:panelGroup> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+<!-- 										END Inserir Foto Usuário  -->
+
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Nome</label>
+											<div class="col-lg-10">
+												<p:inputText value="#{funcionarioIncluirBean.funcionario.nome}"
+													styleClass="form-control" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label">E-mail</label>
+											<div class="col-lg-10">
+												<p:inputText value="#{funcionarioIncluirBean.funcionario.email}"
+													styleClass="form-control" />
+											</div>
+										</div>
+										<h:panelGroup styleClass="form-group" layout="block">
+											<label class="col-lg-2 control-label">Cargo</label>
+											<div class="col-lg-10">
+												<h:selectOneMenu styleClass="chosen-select"
+													style="width: 350px;"
+													value="#{funcionarioIncluirBean.funcionario.cargo}"
+													converter="omnifaces.SelectItemsConverter">
+													<f:selectItem itemLabel="[selecione]" noSelectionOption="true" />
+													<f:selectItems value="#{funcionarioBean.cargos}" var="c"
+														itemLabel="#{c.nome}" itemValue="#{c}" itemLabelEscaped="true" />
+												</h:selectOneMenu>
+											</div>
+										</h:panelGroup>
+										
+<!-- 										<h:panelGroup id="pg-gl-lojas"> -->
+<!-- 											<h:panelGroup styleClass="form-group" layout="block" rendered="#{usuarioIncluirBean.usuario.idUsuario eq null and usuarioIncluirBean.exibirGrupoLojas}"> -->
+<!-- 												<label class="col-lg-2 control-label">Grupo de Lojas</label> -->
+<!-- 												<div class="col-lg-10"> -->
+<!-- 													<h:selectOneMenu value="#{usuarioIncluirBean.usuario.grupoLoja}" styleClass="chzn-select form-control" converter="entityConverterId" style="width: 350px;"> -->
+<!-- 														<f:selectItem noSelectionOption="true" itemLabel="Selecione" /> -->
+<!-- 														<f:selectItems value="#{usuarioIncluirBean.grupoLojas}" var="grupo" itemLabel="#{grupo.dsNome}" itemValue="#{grupo}" /> -->
+<!-- 														<p:ajax event="change" process="@this" update="pg-gl-lojas" listener="#{usuarioIncluirBean.carregarListaLoja}" oncomplete="select2();"/> -->
+<!-- 													</h:selectOneMenu>												 -->
+<!-- 												</div> -->
+<!-- 											</h:panelGroup> -->
+<!-- 											<h:panelGroup id="pg-lojas" styleClass="form-group" layout="block" rendered="#{usuarioIncluirBean.usuario.idUsuario eq null}"> -->
+<!-- 												<label class="col-lg-2 control-label">Loja</label> -->
+<!-- 												<div class="col-lg-10"> -->
+<!-- 													<h:selectOneMenu value="#{usuarioIncluirBean.usuario.loja}" -->
+<!-- 														styleClass="form-control m-b" converter="entityConverterId" -->
+<!-- 														style="width: 350px;"> -->
+<!-- 														<f:selectItem noSelectionOption="true" -->
+<!-- 															itemLabel="Selecione" /> -->
+<!-- 														<f:selectItems value="#{usuarioIncluirBean.lojas}" -->
+<!-- 															var="loja" itemLabel="#{loja.dsNome}" itemValue="#{loja}" /> -->
+<!-- 													</h:selectOneMenu> -->
+<!-- 												</div> -->
+<!-- 											</h:panelGroup> -->
+<!-- 										</h:panelGroup> -->
+										
+										<h:panelGroup styleClass="form-group" layout="block"
+											rendered="#{usuarioIncluirBean.usuario.idUsuario ne null}">
+											<label class="col-lg-2 control-label">Situação</label>
+											<div class="col-lg-3">
+												<h:selectOneMenu
+													value="#{usuarioIncluirBean.usuario.stStatus}"
+													styleClass="form-control m-b">
+													<f:selectItem itemValue="1" itemLabel="Ativo" />
+													<f:selectItem itemValue="0" itemLabel="Inativo" />
+												</h:selectOneMenu>
+											</div>
+										</h:panelGroup>
+										<div class="hr-line-dashed"></div>
+										<div class="form-group">
+											<div class="pull-left" style="padding-left: 12%;">
+												<h:commandButton styleClass="btn btn-primary" value="Salvar" action="#{usuarioIncluirBean.salvar}" />
+												<h:commandButton styleClass="btn btn-default" style="margin-left: 20px" value="Cancelar" action="#{usuarioListarBean.index}" />
+											</div>
+										</div>
 									</fieldset>
 								</div>
 							</div>
