@@ -49,21 +49,7 @@ public class ProdutoIncluirBean extends AbstractView implements Serializable {
 
 	private static final String URL_PAGINA = "/pages/produto/incluir";
 
-	@PostConstruct
-	public void init() {
-
-		// Alterar Produto
-		if (((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getParameter("produtoAlterar") != null) {
-			String produtoAlteracao = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-					.getRequest()).getParameter("produtoAlterar");
-			produto = produtoService.pesquisarProduto(new Long(produtoAlteracao));
-
-		} else {
-			produto = new Produto();
-		}
-	}
-
+	
 	public String incluir() {
 		return redirect(URL_PAGINA);
 	}
