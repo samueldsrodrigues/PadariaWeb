@@ -37,36 +37,7 @@
 				primeiro="Início" segundo="Vendas" imgPrimeiro="fa fa-home" imgSegundo="fa fa-book"/>
 		</div>
 
-		<h:form prependId="false">
-			<div class="row">
-				<div class="form-horizontal">
-					<div class="form-group" style="padding-left:15px; padding-top: 10px;">
-						<h:panelGroup id="grupoLojas-lojas">
-							<!-- Combo de Escolha de Grupo de Lojas -->
-							<h:panelGroup id="grupoLojas" layout="block" styleClass="wrapper wraper-content" rendered="#{usuarioListarBean.userIsRoot}">
-								<div class="col-lg-3">
-									<h:selectOneMenu value="#{appBean.grupoLoja}" styleClass="chzn-select hidden-xs form-control m-b" converter="entityConverter">
-										<f:selectItem itemLabel="[Selecione um Grupo de Lojas]" noSelectionOption="true" />
-										<f:selectItems value="#{appBean.grupoLojasGestor}" var="grupo" itemLabel="#{grupo.dsNome}" itemLabelEscaped="true"/>
-										<p:ajax event="change" process="@this" update="grupoLojas-lojas" listener="#{appBean.grupoLojasChange}" oncomplete="select2()"/>
-									</h:selectOneMenu>
-								</div>
-							</h:panelGroup>
-							
-							<!-- Combo de Escolha das Lojas -->
-							<h:panelGroup id="panelLojas" layout="block" styleClass="wrapper wraper-content" rendered="#{appBean.gestor or appBean.isUserRoot()}">
-								<div class="col-lg-3">
-									<h:selectOneMenu styleClass="chzn-select hidden-xs form-control m-b" value="#{appBean.loja}" converter="entityConverter">
-										<f:selectItem itemLabel="[Selecione uma Loja]" noSelectionOption="true" />
-										<f:selectItems value="#{appBean.lojasGestor}" var="l" itemLabel="#{l.dsNome}" itemValue="#{l}" />
-										<f:ajax render="infSync"/>
-									</h:selectOneMenu>
-						        </div>
-						    </h:panelGroup>
-						</h:panelGroup>
-					</div>
-				</div>
-			</div>
+		
 		    
 			<div class="wrapper wrapper-content animated fadeInRight" style="padding-top: 5px !important;">
 				<div class="row">
