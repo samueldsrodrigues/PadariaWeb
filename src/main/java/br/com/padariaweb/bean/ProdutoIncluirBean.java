@@ -32,13 +32,9 @@ public class ProdutoIncluirBean extends AbstractView implements Serializable {
 
 	private @Getter @Setter Produto produto;
 
-	private @Getter @Setter String senhaAtual;
-	private @Getter @Setter String senha;
-	private @Getter @Setter String confirmacaoSenha;
 
 	private @Getter @Setter Long produtoAlteracao;
 
-	private @Getter @Setter List<Cargo> cargos;
 
 	private static final String URL_PAGINA = "/pages/produto/incluir";
 
