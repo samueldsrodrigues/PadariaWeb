@@ -1,13 +1,11 @@
 package br.com.padariaweb.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import br.com.padariaweb.entity.Cargo;
 import br.com.padariaweb.entity.Produto;
 import br.com.padariaweb.service.ICargoService;
 import br.com.padariaweb.service.IProdutoService;
