@@ -62,21 +62,21 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 		//		}
 
 		//Alterar Usuário
-		if(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("funcionarioAlterar") != null){
-			String funcionarioAlteracao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("funcionarioAlterar");
-			funcionario = funcionarioService.pesquisarFuncionario(new Long(funcionarioAlteracao));
-			List<Cargo> perfisAlteracao = funcionario.getCargos();
-			funcionario.setCargos(new ArrayList<>());
-			for (Cargo cargo : cargos) {
-				for (Cargo cargoAlteracao : perfisAlteracao) {
-					if(cargo.getSqCargo().equals(cargoAlteracao.getSqCargo()))
-						funcionario.getCargo().add(cargo);
-				}
-			}
-
-		}else{
-			funcionario = new Funcionario();
-		}
+//		if(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("funcionarioAlterar") != null){
+//			String funcionarioAlteracao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("funcionarioAlterar");
+//			funcionario = funcionarioService.pesquisarFuncionario(new Long(funcionarioAlteracao));
+//			List<Cargo> perfisAlteracao = funcionario.getCargos();
+//			funcionario.setCargos(new ArrayList<>());
+//			for (Cargo cargo : cargos) {
+//				for (Cargo cargoAlteracao : perfisAlteracao) {
+//					if(cargo.getSqCargo().equals(cargoAlteracao.getSqCargo()))
+//						funcionario.getCargo().add(cargo);
+//				}
+//			}
+//
+//		}else{
+//			funcionario = new Funcionario();
+//		}
 	}
 
 	public String incluir() {
