@@ -54,6 +54,10 @@ public class FuncionarioBean extends AbstractView implements Serializable {
 		return redirect(URL_PAGINA_INCLUIR);
 	}
 	
+	public String incluir() {
+		return alterar();
+	}
+	
 	@PostConstruct
 	public void init() {
 		limpar();
