@@ -61,6 +61,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 		//			}
 		//		}
 
+		
 		//Alterar Usuário
 //		if(((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("funcionarioAlterar") != null){
 //			String funcionarioAlteracao = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getParameter("funcionarioAlterar");
