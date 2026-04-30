@@ -49,6 +49,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 
 	private static final String URL_PAGINA = "/pages/funcionario/incluir";
 
+	
 	@PostConstruct
 	public void init() {
 		//		Funcionario f = (Funcionario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("funcionarioLogado");
