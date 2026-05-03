@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.EqualsAndHashCode;
@@ -24,9 +25,15 @@ public class Funcionario implements Serializable {
 	private static final long serialVersionUID = -7959647335026358771L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
+	@SequenceGenerator(
+	    name = "funcionario_seq",
+	    sequenceName = "funcionario_seq",
+	    allocationSize = 1
+	)
+	
 	@Column(name = "sq_funcionario", unique = true, nullable = false)
-	private @Getter @Setter Long sqFuncionario;
+	private Long sqFuncionario;
 
 	@Column(name = "nome", length = 50)
 	private @Getter @Setter String nome;

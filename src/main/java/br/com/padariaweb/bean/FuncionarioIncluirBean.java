@@ -75,10 +75,23 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 //						funcionario.getCargo().add(cargo);
 //				}
 //			}
-//
-//		}else{
-//			funcionario = new Funcionario();
-//		}
+		try {
+	        String param = ((HttpServletRequest) FacesContext
+	            .getCurrentInstance()
+	            .getExternalContext()
+	            .getRequest())
+	            .getParameter("funcionarioAlterar");
+
+	        if (param != null) {
+	            funcionario = funcionarioService.buscarPeloId(Long.valueOf(param));
+	        } else {
+	            funcionario = new Funcionario();
+	        }
+
+	    } catch (ValidacaoException e) {
+	        addMsgError("Erro ao carregar funcionário");
+	        funcionario = new Funcionario(); // fallback pra não quebrar a tela
+	    }
 	}
 
 	public String incluir() {
