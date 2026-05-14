@@ -41,7 +41,6 @@ public class Funcionario implements Serializable {
 
 	@Column(name = "idade")
 	private @Getter @Setter Integer idade;
-
 	
 	@Column(name = "email", length = 50)
 	private @Getter @Setter String email;
