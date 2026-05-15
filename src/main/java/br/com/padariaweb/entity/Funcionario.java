@@ -51,6 +51,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "semente", length = 100)
 	private @Getter @Setter String semente;
 
+	
 	@Column(name = "dia_folga", length = 20)
 	private @Getter @Setter String diaFolga;
 
