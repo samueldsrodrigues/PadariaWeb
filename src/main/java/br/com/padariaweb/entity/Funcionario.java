@@ -57,7 +57,6 @@ public class Funcionario implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_turno")
 	private @Getter @Setter Turno turno;
-
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_cargo")
