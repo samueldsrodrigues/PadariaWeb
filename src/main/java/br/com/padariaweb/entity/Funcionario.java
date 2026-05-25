@@ -34,7 +34,6 @@ public class Funcionario implements Serializable {
 	
 	@Column(name = "sq_funcionario", unique = true, nullable = false)
 	private Long sqFuncionario;
-
 	
 	@Column(name = "nome", length = 50)
 	private @Getter @Setter String nome;
