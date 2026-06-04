@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 
+import br.com.padariaweb.util.Util.HorarioType;
 import lombok.SneakyThrows;
 
 public class Util {
