@@ -27,13 +27,12 @@ public class Funcionario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "funcionario_seq")
 	@SequenceGenerator(
-	    name = "funcionario_seq",
-	    sequenceName = "funcionario_seq",
-	    allocationSize = 1
-	)
-	
+		    name = "funcionario_seq",
+		    sequenceName = "funcionario_sq_funcionario_seq",
+		    allocationSize = 1
+		)
 	@Column(name = "sq_funcionario", unique = true, nullable = false)
-	private Long sqFuncionario;
+	private @Getter @Setter Long sqFuncionario;
 	
 	@Column(name = "nome", length = 50)
 	private @Getter @Setter String nome;

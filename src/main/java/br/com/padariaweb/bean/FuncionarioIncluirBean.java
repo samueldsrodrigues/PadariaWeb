@@ -1,7 +1,6 @@
 package br.com.padariaweb.bean;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +17,8 @@ import br.com.padariaweb.entity.Funcionario;
 import br.com.padariaweb.exception.ValidacaoException;
 import br.com.padariaweb.service.ICargoService;
 import br.com.padariaweb.service.IFuncionarioService;
+import br.com.padariaweb.entity.Turno;
+import br.com.padariaweb.service.ITurnoService;
 import br.com.padariaweb.util.AbstractView;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,8 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 
 	@ManagedProperty("#{cargoService}")
 	private @Setter ICargoService cargoService;
+	@ManagedProperty("#{turnoService}")
+	private @Setter ITurnoService turnoService;
 
 	private @Getter @Setter Funcionario funcionario;
 
@@ -46,6 +49,9 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 	private @Getter @Setter Long funcionarioAlteracao;
 
 	private @Getter @Setter List<Cargo> cargos;
+	private @Getter @Setter List<Turno> turnos;
+	
+	
 
 	private static final String URL_PAGINA = "/pages/funcionario/incluir";
 
@@ -81,6 +87,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 	            .getExternalContext()
 	            .getRequest())
 	            .getParameter("funcionarioAlterar");
+	        turnos = turnoService.buscarTodos();
 
 	        if (param != null) {
 	            funcionario = funcionarioService.buscarPeloId(Long.valueOf(param));
@@ -108,6 +115,10 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 				if (funcionario.getCargo() == null) {
 					addMsgError("Campo Cargo é obrigatório");
 					return null;
+				}
+				if (funcionario.getTurno() == null) {
+				    addMsgError("Campo Turno é obrigatório");
+				    return null;
 				}
 				if (!validEmailEasy(funcionario.getEmail())) {
 					addMsgError("Campo E-mail é inválido");
