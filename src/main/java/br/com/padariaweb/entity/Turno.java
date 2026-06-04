@@ -1,7 +1,7 @@
 package br.com.padariaweb.entity;
 
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.sql.Time;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,17 +27,16 @@ public class Turno implements Serializable {
 	private @Getter @Setter Long sqTurno;
 
 	@Column(name = "hr_entrada")
-	private @Getter @Setter LocalTime hrEntrada;
+	private @Getter @Setter Time hrEntrada;
 
 	@Column(name = "hr_saida")
-	private @Getter @Setter LocalTime hrSaida;
+	private @Getter @Setter Time hrSaida;
 
 	public Turno() {
 	}
 
-	public Turno(LocalTime hrEntrada, LocalTime hrSaida) {
-		this.hrEntrada = hrEntrada;
-		this.hrSaida = hrSaida;
+	public Turno(Time hrEntrada, Time hrSaida) {
+	    this.hrEntrada = hrEntrada;
+	    this.hrSaida = hrSaida;
 	}
-
 }
