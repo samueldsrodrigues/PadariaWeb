@@ -20,7 +20,8 @@
 		<!-- Header -->
 		<div>
 			<component:breadcrumb titulo="Funcionário" imgTitulo="fa fa-users"
-				primeiro="Início" segundo="Funcionário" terceiro="Incluir"
+				primeiro="Início" segundo="Funcionário"
+				terceiro="#{funcionarioIncluirBean.funcionario.sqFuncionario == null ? 'Incluir' : 'Editar'}"
 				imgPrimeiro="fa fa-home" imgSegundo="fa fa-users" />
 		</div>
 
