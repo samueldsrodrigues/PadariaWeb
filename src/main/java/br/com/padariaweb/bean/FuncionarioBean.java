@@ -51,11 +51,11 @@ public class FuncionarioBean extends AbstractView implements Serializable {
 
 	
 	public String alterar() {
-		return redirect(URL_PAGINA_INCLUIR);
+	    return redirect(URL_PAGINA_INCLUIR + "?funcionarioAlterar=" + funcionarioSelecionado.getSqFuncionario());
 	}
-	
+
 	public String incluir() {
-		return alterar();
+	    return redirect(URL_PAGINA_INCLUIR);
 	}
 	
 	@PostConstruct
