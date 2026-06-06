@@ -53,7 +53,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 	
 	
 
-	private static final String URL_PAGINA = "/pages/funcionario/incluir";
+	private static final String URL_PAGINA = "/pages/funcionarios/incluir";
 
 	
 	@PostConstruct
@@ -89,7 +89,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 	            .getParameter("funcionarioAlterar");
 	        turnos = turnoService.buscarTodos();
 
-	        if (param != null) {
+	        if (param != null && !param.trim().isEmpty() && !"null".equals(param)) {
 	            funcionario = funcionarioService.buscarPeloId(Long.valueOf(param));
 	        } else {
 	            funcionario = new Funcionario();
@@ -206,7 +206,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 	public String alterarFuncionario() {
 		// funcionario = funcionarioService.pesquisarFuncionario(funcionarioAlteracao);
 
-		return "/pages/funcionario/incluir";
+		return "/pages/funcionarios/incluir";
 	}
 
 }
