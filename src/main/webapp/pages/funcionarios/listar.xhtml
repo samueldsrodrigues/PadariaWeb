@@ -92,14 +92,18 @@
 										<div class="form-group">
 											<label class="col-lg-1 control-label">Cargo</label>
 											<div class="col-lg-2">
-												<h:selectOneMenu value="#{funcionarioBean.filtro.cargo}" converter="omnifaces.SelectItemsConverter" styleClass="form-control m-b">
-													<f:selectItem itemLabel="[selecione]" noSelectionOption="true" />
+												<h:selectOneMenu value="#{funcionarioBean.filtro.cargo}"
+													converter="omnifaces.SelectItemsConverter"
+													styleClass="form-control m-b">
+													<f:selectItem itemLabel="[selecione]"
+														noSelectionOption="true" />
 													<f:selectItems value="#{funcionarioBean.cargos}" var="c"
-														itemLabel="#{c.nome}" itemValue="#{c}" itemLabelEscaped="true" />
+														itemLabel="#{c.nome}" itemValue="#{c}"
+														itemLabelEscaped="true" />
 												</h:selectOneMenu>
 											</div>
 										</div>
-										
+
 
 
 
@@ -143,7 +147,7 @@
 							<div class="ibox-content">
 								<div class="table-responsive">
 									<h:panelGroup class="panel-body" id="dataTable" layout="block">
-										
+
 										<h:dataTable var="funcionario" id="resultadoDT"
 											value="#{funcionarioBean.funcionarios}"
 											styleClass="table table-striped table-bordered table-hover dataTables-example dataTable dtr-inline"
@@ -173,29 +177,35 @@
 												<f:facet name="header">Idade</f:facet>
 												<h:outputText value="#{funcionario.idade}" />
 											</h:column>
-											
+
 											<h:column headerClass="col-md-1 text-center">
 												<f:facet name="header">Ações</f:facet>
 												<div class="text-center">
-													<h:commandLink action="#{funcionarioBean.alterar}" title="Alterar Usuário">
+													<h:commandLink action="#{funcionarioBean.alterar}"
+														title="Alterar Usuário">
 														<i class="fa fa-pencil fa-fw" />
-															<f:param value="#{funcionario.sqFuncionario}" name="funcionarioAlterar"/>
-													</h:commandLink>	
-													<h:commandLink title="Redefinir Senha" style="vertical-align: -moz-middle-with-baseline;">
+														<f:setPropertyActionListener value="#{funcionario}"
+															target="#{funcionarioBean.funcionarioSelecionado}" />
+													</h:commandLink>
+													<h:commandLink title="Redefinir Senha"
+														style="vertical-align: -moz-middle-with-baseline;">
 														<i class="fa fa-key fa-fw" />
 														<f:passThroughAttribute name="data-toggle" value="modal" />
-														<f:passThroughAttribute name="data-target" value="#modalRedefinir" />
-														<f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioBean.funcionarioSelecionado}" />							
+														<f:passThroughAttribute name="data-target"
+															value="#modalRedefinir" />
+														<f:setPropertyActionListener value="#{funcionario}"
+															target="#{funcionarioBean.funcionarioSelecionado}" />
 														<f:ajax execute="@this" />
 													</h:commandLink>
 													<h:commandLink styleClass="demo4" title="Excluir Usuário">
 														<i class="fa fa-trash-o fa-fw" />
-														<f:setPropertyActionListener value="#{funcionario}" target="#{funcionarioBean.funcionarioSelecionado}" />
+														<f:setPropertyActionListener value="#{funcionario}"
+															target="#{funcionarioBean.funcionarioSelecionado}" />
 														<f:ajax />
 													</h:commandLink>
 												</div>
 											</h:column>
-											
+
 										</h:dataTable>
 										<!-- <component:paginador dataModel="#{funcionarioBean.usuarios}" load="#{funcionarioBean.load}" idDatatable="dataTable" /> -->
 									</h:panelGroup>
