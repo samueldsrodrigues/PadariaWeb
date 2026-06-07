@@ -138,7 +138,7 @@ public class FuncionarioIncluirBean extends AbstractView implements Serializable
 				funcionarioService.salvar(funcionario);
 				addMsgInfo("Usuário alterado com sucesso");
 			}
-			return "listar";
+			return "/pages/funcionarios/listar?faces-redirect=true";
 		} catch (ValidacaoException e) {
 			addMsgError(e.getMessage());
 			return null;
