@@ -1,0 +1,178 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://xmlns.jcp.org/jsf/composite/components">
+
+<ui:composition template="/pages/template/template.xhtml">
+	<ui:define name="body">
+
+		<script>
+			$(document).ready(function() {
+				select2();
+			});
+		</script>
+
+		<!-- Header -->
+		<div>
+			<component:breadcrumb titulo="Funcionário" imgTitulo="fa fa-users"
+				primeiro="Início" segundo="Funcionário"
+				terceiro="#{funcionarioIncluirBean.funcionario.sqFuncionario == null ? 'Incluir' : 'Editar'}"
+				imgPrimeiro="fa fa-home" imgSegundo="fa fa-users" />
+		</div>
+
+		<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+			<div class="col-lg-12">
+				<div class="tabs-container">
+					<h:form prependId="false" enctype="multipart/form-data">
+						<ul class="nav nav-tabs">
+							<li class="active"><h:commandLink data-toggle="tab"
+									action="#tab-1" value="Informações Usuário" /></li>
+						</ul>
+						<div class="tab-content">
+							<div id="tab-1" class="tab-pane active">
+								<div class="panel-body">
+									<fieldset class="form-horizontal">
+										<!-- 										<h:panelGroup class="form-group" rendered="#{usuarioIncluirBean.usuario.biFoto ne null}"> -->
+										<!-- 											<label class="col-lg-2 control-label">Foto Atual</label> -->
+										<!-- 											<div class="m-b-md"> -->
+										<!-- 												<p:graphicImage cache="false" id="icone" -->
+										<!-- 													value="#{appBean.usuarioWriteFoto}" -->
+										<!-- 													styleClass="img-circle circle-border" height="140" -->
+										<!-- 													width="140" /> -->
+										<!-- 											</div> -->
+										<!-- 										</h:panelGroup> -->
+
+										<!-- 										Inserir Foto Usuário  -->
+										<!-- 										<div class="form-group"> -->
+										<!-- 											<label class="col-lg-2 control-label">Foto</label> -->
+										<!-- 											<div class="col-lg-2"> -->
+										<!-- 												<h:panelGroup layout="block" id="fileChoice">												 -->
+										<!-- 													<span title="Escolha uma foto"> -->
+										<!-- 														<h:inputFile value="#{usuarioIncluirBean.fotofile}" > -->
+										<!-- 															<f:ajax render="@form" listener="#{usuarioIncluirBean.handleBlobUpload()}"/> -->
+										<!-- 														</h:inputFile> -->
+										<!-- 													</span> -->
+										<!-- 												</h:panelGroup> -->
+										<!-- 											</div> -->
+										<!-- 										</div> -->
+										<!-- 										END Inserir Foto Usuário  -->
+
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Nome</label>
+											<div class="col-lg-10">
+												<p:inputText
+													value="#{funcionarioIncluirBean.funcionario.nome}"
+													styleClass="form-control" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Tipo</label>
+											<div class="col-lg-10">
+												<h:inputText value="#{produtoIncluirBean.produto.tipo}"
+													styleClass="form-control" placeholder="Tipo do Produto" />
+											</div>
+										</div>
+										<h:panelGroup styleClass="form-group" layout="block">
+											<label class="col-lg-2 control-label">Cargo</label>
+											<div class="col-lg-10">
+												<h:selectOneMenu styleClass="chosen-select"
+													style="width: 350px;"
+													value="#{funcionarioIncluirBean.funcionario.cargo}"
+													converter="omnifaces.SelectItemsConverter">
+													<f:selectItem itemLabel="[selecione]"
+														noSelectionOption="true" />
+													<f:selectItems value="#{funcionarioBean.cargos}" var="c"
+														itemLabel="#{c.nome}" itemValue="#{c}"
+														itemLabelEscaped="true" />
+												</h:selectOneMenu>
+											</div>
+										</h:panelGroup>
+
+
+										<!-- 										<h:panelGroup id="pg-gl-lojas"> -->
+										<!-- 											<h:panelGroup styleClass="form-group" layout="block" rendered="#{usuarioIncluirBean.usuario.idUsuario eq null and usuarioIncluirBean.exibirGrupoLojas}"> -->
+										<!-- 												<label class="col-lg-2 control-label">Grupo de Lojas</label> -->
+										<!-- 												<div class="col-lg-10"> -->
+										<!-- 													<h:selectOneMenu value="#{usuarioIncluirBean.usuario.grupoLoja}" styleClass="chzn-select form-control" converter="entityConverterId" style="width: 350px;"> -->
+										<!-- 														<f:selectItem noSelectionOption="true" itemLabel="Selecione" /> -->
+										<!-- 														<f:selectItems value="#{usuarioIncluirBean.grupoLojas}" var="grupo" itemLabel="#{grupo.dsNome}" itemValue="#{grupo}" /> -->
+										<!-- 														<p:ajax event="change" process="@this" update="pg-gl-lojas" listener="#{usuarioIncluirBean.carregarListaLoja}" oncomplete="select2();"/> -->
+										<!-- 													</h:selectOneMenu>												 -->
+										<!-- 												</div> -->
+										<!-- 											</h:panelGroup> -->
+										<!-- 											<h:panelGroup id="pg-lojas" styleClass="form-group" layout="block" rendered="#{usuarioIncluirBean.usuario.idUsuario eq null}"> -->
+										<!-- 												<label class="col-lg-2 control-label">Loja</label> -->
+										<!-- 												<div class="col-lg-10"> -->
+										<!-- 													<h:selectOneMenu value="#{usuarioIncluirBean.usuario.loja}" -->
+										<!-- 														styleClass="form-control m-b" converter="entityConverterId" -->
+										<!-- 														style="width: 350px;"> -->
+										<!-- 														<f:selectItem noSelectionOption="true" -->
+										<!-- 															itemLabel="Selecione" /> -->
+										<!-- 														<f:selectItems value="#{usuarioIncluirBean.lojas}" -->
+										<!-- 															var="loja" itemLabel="#{loja.dsNome}" itemValue="#{loja}" /> -->
+										<!-- 													</h:selectOneMenu> -->
+										<!-- 												</div> -->
+										<!-- 											</h:panelGroup> -->
+										<!-- 										</h:panelGroup> -->
+
+										<h:panelGroup styleClass="form-group" layout="block"
+											rendered="#{usuarioIncluirBean.usuario.idUsuario ne null}">
+											<label class="col-lg-2 control-label">Situação</label>
+											<div class="col-lg-3">
+												<h:selectOneMenu
+													value="#{usuarioIncluirBean.usuario.stStatus}"
+													styleClass="form-control m-b">
+													<f:selectItem itemValue="1" itemLabel="Ativo" />
+													<f:selectItem itemValue="0" itemLabel="Inativo" />
+												</h:selectOneMenu>
+											</div>
+										</h:panelGroup>
+										<div class="hr-line-dashed"></div>
+										<div class="form-group">
+											<div class="pull-left" style="padding-left: 12%;">
+												<h:commandButton styleClass="btn btn-primary" value="Salvar"
+													action="#{funcionarioIncluirBean.salvar}" />
+												<h:button styleClass="btn btn-default"
+													style="margin-left: 20px" value="Cancelar"
+													outcome="/pages/funcionarios/listar" />
+											</div>
+										</div>
+									</fieldset>
+								</div>
+							</div>
+						</div>
+
+						<h:outputScript library="primefaces/fileupload"
+							name="fileupload.js" />
+						<h:outputScript library="js" name="jquery.maskedinput.js" />
+
+						<script>
+							$(document).ready(function() {
+								$("#dtNascimento").datepicker();
+								$("#dtNascimento").mask("99/99/9999");
+								var config = {
+									'.chosen-select' : {},
+									'.chosen-select-deselect' : {
+										allow_single_deselect : true
+									},
+									'.chosen-select-width' : {
+										width : "95%"
+									}
+								}
+								for ( var selector in config) {
+									$(selector).chosen(config[selector]);
+								}
+							});
+						</script>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
