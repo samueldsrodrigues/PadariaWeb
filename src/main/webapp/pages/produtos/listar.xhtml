@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:component="http://xmlns.jcp.org/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/pages/template/template.xhtml">
+	<ui:define name="body">
+		<script>
+			$(document).ready(function() {
+				$('.demo4').click(function() {
+					swal({
+						title : "Você tem certeza?",
+						text : "O produto será removido do sistema!",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "Excluir!",
+						cancelButtonText : "Cancelar",
+						closeOnConfirm : false,
+						closeOnCancel : true
+					}, function(isConfirm) {
+						if (isConfirm) {
+							excluir();
+						}
+					});
+				});
+
+				var tableResult = $('#resultadoDT').DataTable({
+					"bInfo" : false,
+					"destroy" : true,
+					"language" : {
+						"url" : "../../../resources/i18n/pt_BR.json"
+					}
+				/*,
+									dom: 'lfBrtip',
+				 			        buttons: [
+							            'print', 'excel', 'pdf'
+							        ] */
+				});
+			});
+
+			function handleComplete(xhr, status, args) {
+				if (args.retorno == 'ok') {
+					swal("Removido", "Produto removido com sucesso!", "success");
+				} else if (args.retorno == 'nOk') {
+					swal("Cancelado",
+							"O produto autenticado não poderá ser excluído!",
+							"info");
+				} else {
+					swal("Cancelado", "Ocorreu um erro ao remover o produto!",
+							"error");
+				}
+			}
+		</script>
+
+		<!-- Header -->
+		<div>
+			<component:breadcrumb titulo="Produtos"
+				imgTitulo="fa fa-check-square-o" primeiro="Início"
+				segundo="Produtos" imgPrimeiro="fa fa-home"
+				imgSegundo="fa fa-check-square-o" />
+		</div>
+
+		<h:form prependId="false">
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<i class="fa fa-filter fa-fw" /> Filtro <span> <a
+									class="collapse-link" style="color: #2f4050; float: right;"><i
+										class="fa fa-chevron-up"></i></a>
+								</span>
+							</div>
+							<!-- Filtro de Pesquisa -->
+							<div class="ibox-content">
+								<div class="row">
+									<div class="form-horizontal">
+										<div class="form-group">
+											<label class="col-lg-1 control-label" style="width: 130px;">Nome</label>
+											<div class="col-lg-2">
+												<h:inputText value="#{produtoBean.filtro.nome}"
+													styleClass="form-control" placeholder="Nome do Produto"
+													title="Pesquisar Produto" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-1 control-label">Tipo</label>
+											<div class="col-lg-2">
+												<h:selectOneMenu value="#{produtoBean.filtro.tipo}"
+													styleClass="form-control m-b">
+
+													<f:selectItem itemLabel="[selecione]" itemValue="" />
+													<f:selectItem itemLabel="Pão" itemValue="Pão" />
+													<f:selectItem itemLabel="Bolo" itemValue="Bolo" />
+													<f:selectItem itemLabel="Doce" itemValue="Doce" />
+													<f:selectItem itemLabel="Salgado" itemValue="Salgado" />
+													<f:selectItem itemLabel="Bebida" itemValue="Bebida" />
+												</h:selectOneMenu>
+											</div>
+										</div>
+
+
+
+
+
+
+										<div class="hr-line-dashed"></div>
+										<!-- Ações -->
+										<div class="form-group">
+											<div style="margin-left: 4%;">
+												<h:commandLink styleClass="btn btn-primary"
+													action="#{produtoBean.pesquisar}">
+													<i class="fa fa-search fa-fw"></i> Pesquisar
+												</h:commandLink>
+												<h:commandLink styleClass="btn btn-default"
+													style="margin-left: 15px" action="#{produtoBean.limpar}">
+													<i class="fa fa-trash-o fa-fw"></i> Limpar
+												</h:commandLink>
+												<h:commandLink styleClass="btn btn-primary"
+													style="float: right;margin-right: 30px;"
+													action="#{produtoBean.incluir}">
+													<i class="fa fa-plus fa-fw"></i> Incluir
+												</h:commandLink>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<h:panelGroup styleClass="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<div class="form-group">
+									<span class="title" style="font-size: 16px; font-weight: 400;">Resultado</span>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div class="table-responsive">
+									<h:panelGroup class="panel-body" id="dataTable" layout="block">
+
+										<h:dataTable var="produto" id="resultadoDT"
+											value="#{produtoBean.produtos}"
+											styleClass="table table-striped table-bordered table-hover dataTables-example dataTable dtr-inline"
+											columnClasses="text-left, text-left, text-left, text-left, text-left, text-left">
+
+											<h:column headerClass="col-md-1">
+												<f:facet name="header">ID</f:facet>
+												<h:outputText value="#{produto.sqProduto}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Nome</f:facet>
+												<h:outputText value="#{produto.nome}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Tipo</f:facet>
+												<h:outputText value="#{produto.tipo}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Descrição</f:facet>
+												<h:outputText value="#{produto.descricao}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Data de Validade</f:facet>
+												<h:outputText value="#{produto.dtValidade}">
+													<f:convertDateTime pattern="dd/MM/yyyy" />
+												</h:outputText>
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Imagem</f:facet>
+												<h:graphicImage value="/resources/img/produto-padrao.png"
+													style="width: 40px; height: 40px; object-fit: cover;" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Estoque</f:facet>
+												<h:outputText value="#{produto.estoque}" />
+											</h:column>
+
+											<h:column headerClass="col-md-1 text-center">
+												<f:facet name="header">Ações</f:facet>
+												<div class="text-center">
+													<h:commandLink action="#{produtoBean.alterar}"
+														title="Alterar Produto">
+														<i class="fa fa-pencil fa-fw" />
+														<f:setPropertyActionListener value="#{produto}"
+															target="#{produtoBean.produtoSelecionado}" />
+													</h:commandLink>
+
+													<h:commandLink styleClass="demo4" title="Excluir Produto">
+														<i class="fa fa-trash-o fa-fw" />
+														<f:setPropertyActionListener value="#{produto}"
+															target="#{produtoBean.produtoSelecionado}" />
+														<f:ajax />
+													</h:commandLink>
+												</div>
+											</h:column>
+
+										</h:dataTable>
+										<!-- <component:paginador dataModel="#{funcionarioBean.usuarios}" load="#{funcionarioBean.load}" idDatatable="dataTable" /> -->
+									</h:panelGroup>
+								</div>
+							</div>
+						</div>
+					</h:panelGroup>
+				</div>
+			</div>
+			<p:remoteCommand name="excluir"
+				actionListener="#{produtoBean.remover}"
+				oncomplete="handleComplete(xhr, status, args)" update="@(form)" />
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>
