@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -19,7 +20,12 @@ public class Produto implements java.io.Serializable {
 	private static final long serialVersionUID = 8397836139772841238L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+	@SequenceGenerator(
+	    name = "produto_seq",
+	    sequenceName = "produto_sq_produto_seq",
+	    allocationSize = 1
+	)
 	@Column(name = "sq_produto", unique = false, nullable = false)
 	private @Getter @Setter Long sqProduto;
 	
@@ -37,6 +43,9 @@ public class Produto implements java.io.Serializable {
 	
 	@Column(name = "estoque")
 	private @Getter @Setter Integer estoque;
+	
+	@Column(name = "imagem", length = 255)
+	private @Getter @Setter String imagem;
 	
 	
 	public Produto() {}
