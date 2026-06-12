@@ -27,7 +27,6 @@ public class ProdutoDao extends GenericoCRUDDAOJPA<Produto, Long> implements IPr
 	@SuppressWarnings("unchecked")
 	private List<Produto> createCriteriaPesquisar(Produto filtro, Integer first, Integer maxPerPage) {
 		Criteria c = criteria();
-		c.createAlias("loja", "l");
 
 		if (filtro.getSqProduto() != null)
 			c.add(Restrictions.eq("sqProduto", filtro.getSqProduto()));
@@ -35,8 +34,12 @@ public class ProdutoDao extends GenericoCRUDDAOJPA<Produto, Long> implements IPr
 		if (filtro.getNome() != null && !filtro.getNome().isEmpty())
 			c.add(Restrictions.ilike("nome", '%' + filtro.getNome() + '%'));
 
+		if (filtro.getTipo() != null && !filtro.getTipo().isEmpty())
+			c.add(Restrictions.ilike("tipo", '%' + filtro.getTipo() + '%'));
+
 		if (first != null)
 			c.setFirstResult(first);
+
 		if (maxPerPage != null)
 			c.setMaxResults(maxPerPage);
 
@@ -45,14 +48,17 @@ public class ProdutoDao extends GenericoCRUDDAOJPA<Produto, Long> implements IPr
 
 	@SuppressWarnings("unchecked")
 	public List<Produto> verificaProdutoExistente(Produto filtro) {
-		Criteria c = criteria();
+	    Criteria c = criteria();
 
-		if (filtro.getSqProduto() != null)
-			c.add(Restrictions.ne("sqProduto", filtro.getSqProduto()));
+	    if (filtro.getSqProduto() != null) {
+	        c.add(Restrictions.ne("sqProduto", filtro.getSqProduto()));
+	    }
 
-		return c.list();
+	    if (filtro.getNome() != null && !filtro.getNome().trim().isEmpty()) {
+	        c.add(Restrictions.ilike("nome", filtro.getNome()));
+	    }
+
+	    return c.list();
 	}
-
-	
 
 }
