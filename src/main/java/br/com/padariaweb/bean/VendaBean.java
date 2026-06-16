@@ -3,6 +3,7 @@ package br.com.padariaweb.bean;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -24,18 +25,19 @@ public class VendaBean extends AbstractView implements Serializable {
 
 	@ManagedProperty("#{vendaService}")
 	private @Setter IVendaService vendaService;
-
+	
 	private @Getter @Setter List<Venda> vendas;
-
 	private @Getter @Setter Venda filtro;
-
 	private @Getter @Setter Venda vendaSelecionada;
 
-	/* Informações do Usuário Logado */
+	@SuppressWarnings("unused")
+	private static final String URL_PAGINA = "/pages/vendas/listar";
+	private static final String URL_PAGINA_INCLUIR = "/pages/vendas/incluir";
 
-//	@SuppressWarnings("unused")
-//	private static final String URL_PAGINA = "/pages/admin/venda/listar";
-//	private static final String URL_PAGINA_INCLUIR = "/pages/admin/venda/incluir";
+	@PostConstruct
+	public void init() {
+		limpar();
+	}
 
 	public void limpar() {
 		filtro = new Venda();
@@ -47,12 +49,17 @@ public class VendaBean extends AbstractView implements Serializable {
 		vendas = vendaService.pesquisarVenda(filtro, null, 500);
 	}
 
-	// Exclui venda PERMANENTEMENTE
-	public void remover() throws ValidacaoException {
-		RequestContext context = RequestContext.getCurrentInstance();
-		vendaService.excluir(vendaSelecionada);
-		context.addCallbackParam("retorno", "ok");
-
+	public String incluir() {
+		return redirect(URL_PAGINA_INCLUIR);
 	}
 
+	public void remover() throws ValidacaoException {
+		RequestContext context = RequestContext.getCurrentInstance();
+		vendaService.excluirVendaCompleta(vendaSelecionada);
+		context.addCallbackParam("retorno", "ok");
+	}
+	
+	public String visualizar() {
+	    return redirect("/pages/vendas/detalhes?venda=" + vendaSelecionada.getSqVenda());
+	}
 }

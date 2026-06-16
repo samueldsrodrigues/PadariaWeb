@@ -9,136 +9,192 @@
 
 <ui:composition template="/pages/template/template.xhtml">
 	<ui:define name="body">
-	
+
 		<script>
 			$(document).ready(function() {
 				select2();
 			});
-		</script>			
-			
-			
+		</script>
+
+		<div>
+			<component:breadcrumb titulo="Vendas" imgTitulo="fa fa-tag"
+				primeiro="Início" segundo="Vendas" terceiro="Incluir"
+				imgPrimeiro="fa fa-home" imgSegundo="fa fa-tag"
+				linkSegundo="/PadariaWeb/pages/vendas/listar" />
+		</div>
+
+
+
 		<!-- Header -->
-		
-			<div class="wrapper wrapper-content animated fadeInRight ecommerce" >
-				<div class="col-lg-12">
-					<div class="tabs-container">
-						<h:form prependId="false" enctype="multipart/form-data">
-							<ul class="nav nav-tabs">
-								<li class="active"><h:commandLink data-toggle="tab"
-										action="#tab-1" value="Informações Usuário" /></li>
-							</ul>
-							
+
+		<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+			<div class="col-lg-12">
+				<div class="tabs-container">
+					<h:form prependId="false" enctype="multipart/form-data">
+						<ul class="nav nav-tabs">
+							<li class="active"><h:commandLink data-toggle="tab"
+									action="#tab-1" value="Informações Venda" /></li>
+						</ul>
+
 						<div class="tab-content">
 							<div id="tab-1" class="tab-pane active">
 								<div class="panel-body">
 									<fieldset class="form-horizontal">
-<!-- 										<h:panelGroup class="form-group" rendered="#{usuarioIncluirBean.usuario.biFoto ne null}"> -->
-<!-- 											<label class="col-lg-2 control-label">Foto Atual</label> -->
-<!-- 											<div class="m-b-md"> -->
-<!-- 												<p:graphicImage cache="false" id="icone" -->
-<!-- 													value="#{appBean.usuarioWriteFoto}" -->
-<!-- 													styleClass="img-circle circle-border" height="140" -->
-<!-- 													width="140" /> -->
-<!-- 											</div> -->
-<!-- 										</h:panelGroup> -->
-										
-<!-- 										Inserir Foto Usuário  -->
-<!-- 										<div class="form-group"> -->
-<!-- 											<label class="col-lg-2 control-label">Foto</label> -->
-<!-- 											<div class="col-lg-2"> -->
-<!-- 												<h:panelGroup layout="block" id="fileChoice">												 -->
-<!-- 													<span title="Escolha uma foto"> -->
-<!-- 														<h:inputFile value="#{usuarioIncluirBean.fotofile}" > -->
-<!-- 															<f:ajax render="@form" listener="#{usuarioIncluirBean.handleBlobUpload()}"/> -->
-<!-- 														</h:inputFile> -->
-<!-- 													</span> -->
-<!-- 												</h:panelGroup> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-<!-- 										END Inserir Foto Usuário  -->
+
+
+										<h3>Nova Venda</h3>
 
 										<div class="form-group">
-											<label class="col-lg-2 control-label">Nome</label>
-											<div class="col-lg-10">
-												<p:inputText value="#{vendaIncluirBean.venda.nome}"
-													styleClass="form-control" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-lg-2 control-label">E-mail</label>
-											<div class="col-lg-10">
-												<p:inputText value="#{vendaIncluirBean.venda.email}"
-													styleClass="form-control" />
-											</div>
-										</div>
-										<h:panelGroup styleClass="form-group" layout="block">
-											<label class="col-lg-2 control-label">Cargo</label>
-											<div class="col-lg-10">
-												<h:selectOneMenu styleClass="chosen-select"
-													style="width: 350px;"
-													value="#{vendaIncluirBean.venda.cargo}"
-													converter="omnifaces.SelectItemsConverter">
-													<f:selectItem itemLabel="[selecione]" noSelectionOption="true" />
-													<f:selectItems value="#{vendaBean.cargos}" var="c"
-														itemLabel="#{c.nome}" itemValue="#{c}" itemLabelEscaped="true" />
+											<label class="col-lg-2 control-label">Cliente</label>
+											<div class="col-lg-4">
+												<h:selectOneMenu value="#{vendaIncluirBean.venda.cliente}"
+													converter="omnifaces.SelectItemsConverter"
+													styleClass="form-control">
+													<f:selectItem itemLabel="[nulo]"
+														noSelectionOption="true" />
+													<f:selectItems value="#{vendaIncluirBean.clientes}" var="c"
+														itemLabel="#{c.nome}" itemValue="#{c}" />
 												</h:selectOneMenu>
 											</div>
-										</h:panelGroup>
-										
-<!-- 										<h:panelGroup id="pg-gl-lojas"> -->
-<!-- 											<h:panelGroup styleClass="form-group" layout="block" rendered="#{usuarioIncluirBean.usuario.idUsuario eq null and usuarioIncluirBean.exibirGrupoLojas}"> -->
-<!-- 												<label class="col-lg-2 control-label">Grupo de Lojas</label> -->
-<!-- 												<div class="col-lg-10"> -->
-<!-- 													<h:selectOneMenu value="#{usuarioIncluirBean.usuario.grupoLoja}" styleClass="chzn-select form-control" converter="entityConverterId" style="width: 350px;"> -->
-<!-- 														<f:selectItem noSelectionOption="true" itemLabel="Selecione" /> -->
-<!-- 														<f:selectItems value="#{usuarioIncluirBean.grupoLojas}" var="grupo" itemLabel="#{grupo.dsNome}" itemValue="#{grupo}" /> -->
-<!-- 														<p:ajax event="change" process="@this" update="pg-gl-lojas" listener="#{usuarioIncluirBean.carregarListaLoja}" oncomplete="select2();"/> -->
-<!-- 													</h:selectOneMenu>												 -->
-<!-- 												</div> -->
-<!-- 											</h:panelGroup> -->
-<!-- 											<h:panelGroup id="pg-lojas" styleClass="form-group" layout="block" rendered="#{usuarioIncluirBean.usuario.idUsuario eq null}"> -->
-<!-- 												<label class="col-lg-2 control-label">Loja</label> -->
-<!-- 												<div class="col-lg-10"> -->
-<!-- 													<h:selectOneMenu value="#{usuarioIncluirBean.usuario.loja}" -->
-<!-- 														styleClass="form-control m-b" converter="entityConverterId" -->
-<!-- 														style="width: 350px;"> -->
-<!-- 														<f:selectItem noSelectionOption="true" -->
-<!-- 															itemLabel="Selecione" /> -->
-<!-- 														<f:selectItems value="#{usuarioIncluirBean.lojas}" -->
-<!-- 															var="loja" itemLabel="#{loja.dsNome}" itemValue="#{loja}" /> -->
-<!-- 													</h:selectOneMenu> -->
-<!-- 												</div> -->
-<!-- 											</h:panelGroup> -->
-<!-- 										</h:panelGroup> -->
-										
-										<h:panelGroup styleClass="form-group" layout="block"
-											rendered="#{usuarioIncluirBean.usuario.idUsuario ne null}">
-											<label class="col-lg-2 control-label">Situação</label>
+										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Produto</label>
+											<div class="col-lg-4">
+												<h:selectOneMenu
+													value="#{vendaIncluirBean.produtoSelecionado}"
+													converter="omnifaces.SelectItemsConverter"
+													styleClass="form-control">
+													<f:selectItem itemLabel="[selecione]"
+														noSelectionOption="true" />
+													<f:selectItems value="#{vendaIncluirBean.produtos}" var="p"
+														itemLabel="#{p.nome}" itemValue="#{p}" />
+												</h:selectOneMenu>
+											</div>
+
+											<label class="col-lg-1 control-label">Quantidade</label>
+											<div class="col-lg-2">
+												<h:inputText value="#{vendaIncluirBean.quantidade}"
+													styleClass="form-control" placeholder="Quantidade">
+													<f:convertNumber integerOnly="true" />
+												</h:inputText>
+											</div>
+
+											<div class="col-lg-2">
+												<h:commandButton value="Adicionar Produto"
+													styleClass="btn btn-primary"
+													action="#{vendaIncluirBean.adicionarProduto}" />
+											</div>
+										</div>
+
+										<br />
+
+										<h:dataTable value="#{vendaIncluirBean.itens}" var="item"
+											styleClass="table table-striped table-bordered">
+
+											<h:column>
+												<f:facet name="header">Produto</f:facet>
+												<h:outputText value="#{item.produto.nome}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Quantidade</f:facet>
+												<h:outputText value="#{item.quantidade}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Preço Unitário</f:facet>
+												<h:outputText value="#{item.precoUnitario}">
+													<f:convertNumber type="currency" currencySymbol="R$ " />
+												</h:outputText>
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Subtotal</f:facet>
+												<h:outputText value="#{item.subtotal}">
+													<f:convertNumber type="currency" currencySymbol="R$ " />
+												</h:outputText>
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Ações</f:facet>
+
+												<h:commandLink
+													action="#{vendaIncluirBean.removerItem(item)}"
+													title="Remover Item">
+													<i class="fa fa-trash-o fa-fw" />
+												</h:commandLink>
+											</h:column>
+
+										</h:dataTable>
+
+										<h3>
+											Total:
+											<h:outputText value="#{vendaIncluirBean.total}">
+												<f:convertNumber type="currency" currencySymbol="R$ " />
+											</h:outputText>
+										</h3>
+
+										<div class="hr-line-dashed"></div>
+
+										<h3>Pagamento</h3>
+
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Tipo</label>
 											<div class="col-lg-3">
 												<h:selectOneMenu
-													value="#{usuarioIncluirBean.usuario.stStatus}"
-													styleClass="form-control m-b">
-													<f:selectItem itemValue="1" itemLabel="Ativo" />
-													<f:selectItem itemValue="0" itemLabel="Inativo" />
+													value="#{vendaIncluirBean.formaPagamento.tipo}"
+													styleClass="form-control">
+													<f:selectItem itemLabel="[selecione]" itemValue="" />
+													<f:selectItem itemLabel="Dinheiro" itemValue="Dinheiro" />
+													<f:selectItem itemLabel="PIX" itemValue="PIX" />
+													<f:selectItem itemLabel="Débito" itemValue="Débito" />
+													<f:selectItem itemLabel="Crédito" itemValue="Crédito" />
 												</h:selectOneMenu>
 											</div>
-										</h:panelGroup>
-										<div class="hr-line-dashed"></div>
-										<div class="form-group">
-											<div class="pull-left" style="padding-left: 12%;">
-												<h:commandButton styleClass="btn btn-primary" value="Salvar" action="#{usuarioIncluirBean.salvar}" />
-												<h:commandButton styleClass="btn btn-default" style="margin-left: 20px" value="Cancelar" action="#{usuarioListarBean.index}" />
+
+											<label class="col-lg-1 control-label">Bandeira</label>
+											<div class="col-lg-3">
+												<h:inputText
+													value="#{vendaIncluirBean.formaPagamento.bandeira}"
+													styleClass="form-control" placeholder="Bandeira" />
 											</div>
 										</div>
+
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Parcelas</label>
+											<div class="col-lg-3">
+												<h:inputText
+													value="#{vendaIncluirBean.formaPagamento.qtdParcelas}"
+													styleClass="form-control" placeholder="Parcelas">
+													<f:convertNumber integerOnly="true" />
+												</h:inputText>
+											</div>
+										</div>
+
+										<div class="hr-line-dashed"></div>
+
+										<div class="form-group">
+											<div class="col-lg-offset-2 col-lg-10">
+												<h:commandButton value="Finalizar Venda"
+													styleClass="btn btn-primary"
+													action="#{vendaIncluirBean.finalizarVenda}" />
+
+												<h:button value="Cancelar" styleClass="btn btn-default"
+													style="margin-left: 15px" outcome="/pages/vendas/listar" />
+											</div>
+										</div>
+
 									</fieldset>
 								</div>
 							</div>
 						</div>
-						
-						<h:outputScript library="primefaces/fileupload" name="fileupload.js" />
+
+						<h:outputScript library="primefaces/fileupload"
+							name="fileupload.js" />
 						<h:outputScript library="js" name="jquery.maskedinput.js" />
-						
-						
+
+
 						<script>
 							$(document).ready(function() {
 								$("#dtNascimento").datepicker();

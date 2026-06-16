@@ -12,50 +12,46 @@ import br.com.padariaweb.entity.Venda;
 @Repository
 public class VendaDao extends GenericoCRUDDAOJPA<Venda, Long> implements IVendaDao {
 
-	public List<Venda> pesquisarVenda(Venda filtro, Integer first, Integer maxPerPage) {
-		return createCriteriaPesquisar(filtro, first, maxPerPage);
-	}
+    @SuppressWarnings("unchecked")
+    public List<Venda> pesquisarVenda(Venda filtro, Integer first, Integer maxPerPage) {
+        Criteria c = criteria();
 
-	/*
-	 * public int countVenda(Venda filtro, Integer userSqLoja, Integer
-	 * userSqGrupoLoja, boolean isUserRoot) { Integer count = (Integer)
-	 * createCriteriaPesquisar(filtro, null, null, userSqLoja, userSqGrupoLoja,
-	 * isUserRoot) .setProjection(Projections.rowCount()) .uniqueResult(); return
-	 * count.intValue(); }
-	 */
+        if (filtro.getSqVenda() != null) {
+            c.add(Restrictions.eq("sqVenda", filtro.getSqVenda()));
+        }
 
-	@SuppressWarnings("unchecked")
-	private List<Venda> createCriteriaPesquisar(Venda filtro, Integer first, Integer maxPerPage) {
-		Criteria c = criteria();
-		c.createAlias("loja", "l");
+        if (filtro.getDtVenda() != null) {
+            c.add(Restrictions.eq("dtVenda", filtro.getDtVenda()));
+        }
 
-		if (filtro.getSqVenda() != null)
-			c.add(Restrictions.eq("sqVenda", filtro.getSqVenda()));
+        if (filtro.getFuncionario() != null && filtro.getFuncionario().getSqFuncionario() != null) {
+            c.createAlias("funcionario", "funcionario");
+            c.add(Restrictions.eq("funcionario.sqFuncionario", filtro.getFuncionario().getSqFuncionario()));
+        }
 
-		if (filtro.getDtVenda() != null)
-			c.add(Restrictions.ilike("dtVenda", filtro.getDtVenda()));
-		
-		if (filtro.getFkFuncionario() != null)
-			c.add(Restrictions.ilike("nome", filtro.getFkFuncionario()));
+        if (filtro.getCliente() != null && filtro.getCliente().getSqCliente() != null) {
+            c.createAlias("cliente", "cliente");
+            c.add(Restrictions.eq("cliente.sqCliente", filtro.getCliente().getSqCliente()));
+        }
 
-		if (first != null)
-			c.setFirstResult(first);
-		if (maxPerPage != null)
-			c.setMaxResults(maxPerPage);
+        if (first != null) {
+            c.setFirstResult(first);
+        }
 
-		return c.list();
-	}
+        if (maxPerPage != null) {
+            c.setMaxResults(maxPerPage);
+        }
 
-	@SuppressWarnings("unchecked")
-	public List<Venda> verificaVendaExistente(Venda filtro) {
-		Criteria c = criteria();
+        return c.list();
+    }
 
-		if (filtro.getSqVenda() != null)
-			c.add(Restrictions.ne("sqVenda", filtro.getSqVenda()));
+    public List<Venda> verificaVendaExistente(Venda filtro) {
+        Criteria c = criteria();
 
-		return c.list();
-	}
+        if (filtro.getSqVenda() != null) {
+            c.add(Restrictions.ne("sqVenda", filtro.getSqVenda()));
+        }
 
-	
-
+        return c.list();
+    }
 }
