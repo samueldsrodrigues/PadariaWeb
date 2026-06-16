@@ -11,8 +11,12 @@ import javax.faces.bean.ViewScoped;
 
 import org.primefaces.context.RequestContext;
 
+import br.com.padariaweb.entity.Cliente;
+import br.com.padariaweb.entity.Funcionario;
 import br.com.padariaweb.entity.Venda;
 import br.com.padariaweb.exception.ValidacaoException;
+import br.com.padariaweb.service.IClienteService;
+import br.com.padariaweb.service.IFuncionarioService;
 import br.com.padariaweb.service.IVendaService;
 import br.com.padariaweb.util.AbstractView;
 import lombok.Getter;
@@ -27,7 +31,15 @@ public class VendaBean extends AbstractView implements Serializable {
 	@ManagedProperty("#{vendaService}")
 	private @Setter IVendaService vendaService;
 	
+	@ManagedProperty("#{clienteService}")
+	private @Setter IClienteService clienteService;
+
+	@ManagedProperty("#{funcionarioService}")
+	private @Setter IFuncionarioService funcionarioService;
+	
 	private @Getter @Setter List<Venda> vendas;
+	private @Getter @Setter List<Funcionario> funcionarios;
+	private @Getter @Setter List<Cliente> clientes;
 	private @Getter @Setter Venda filtro;
 	private @Getter @Setter Venda vendaSelecionada;
 	private @Getter @Setter Date dtInicial;
@@ -40,6 +52,13 @@ public class VendaBean extends AbstractView implements Serializable {
 	@PostConstruct
 	public void init() {
 		limpar();
+		try {
+			clientes = clienteService.buscarTodos();
+			funcionarios = funcionarioService.buscarTodos();
+		} catch (ValidacaoException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void limpar() {

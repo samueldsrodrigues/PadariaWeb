@@ -91,6 +91,40 @@
 										</div>
 									</div>
 
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Cliente</label>
+
+										<div class="col-lg-4">
+											<h:selectOneMenu value="#{vendaBean.filtro.cliente}"
+												converter="omnifaces.SelectItemsConverter"
+												styleClass="form-control">
+
+												<f:selectItem itemLabel="[selecione]" itemValue="#{null}" />
+
+												<f:selectItems value="#{vendaBean.clientes}" var="c"
+													itemLabel="#{c.nome}" itemValue="#{c}" />
+
+											</h:selectOneMenu>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<label class="col-lg-2 control-label">Funcionario</label>
+
+										<div class="col-lg-4">
+											<h:selectOneMenu value="#{vendaBean.filtro.funcionario}"
+												converter="omnifaces.SelectItemsConverter"
+												styleClass="form-control">
+
+												<f:selectItem itemLabel="[selecione]" itemValue="#{null}" />
+
+												<f:selectItems value="#{vendaBean.funcionarios}" var="f"
+													itemLabel="#{f.nome}" itemValue="#{f}" />
+
+											</h:selectOneMenu>
+										</div>
+									</div>
+
 									<div class="hr-line-dashed"></div>
 
 									<div class="form-group">
