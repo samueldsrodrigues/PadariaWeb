@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.padariaweb.dao.IFormaPagamentoDao;
+import br.com.padariaweb.dao.IProdutoDao;
 import br.com.padariaweb.dao.IVendaDao;
 import br.com.padariaweb.dao.IVendaProdutoDao;
 import br.com.padariaweb.entity.FormaPagamento;
+import br.com.padariaweb.entity.Produto;
 import br.com.padariaweb.entity.Venda;
 import br.com.padariaweb.entity.VendaProduto;
 import br.com.padariaweb.exception.ValidacaoException;
@@ -29,6 +31,9 @@ public class VendaService extends GenericoCRUDManager<Venda, Long> implements IV
 	
 	@Autowired
     private IFormaPagamentoDao formaPagamentoDao;
+	
+	@Autowired
+	private IProdutoDao produtoDao;
 
     public List<Venda> pesquisarVenda(Venda filtro, Integer first, Integer maxPerPage) {
         return vendaDao.pesquisarVenda(filtro, first, maxPerPage);
@@ -58,6 +63,16 @@ public class VendaService extends GenericoCRUDManager<Venda, Long> implements IV
 	    List<VendaProduto> itens = vendaProdutoDao.pesquisarVendaProduto(filtroItem, null, 500);
 
 	    for (VendaProduto item : itens) {
+	    	Produto produto = item.getProduto();
+
+	        if (produto.getEstoque() == null) {
+	            produto.setEstoque(0);
+	        }
+
+	        produto.setEstoque(produto.getEstoque() + item.getQuantidade());
+
+	        produtoDao.update(produto);
+
 	        vendaProdutoDao.delete(item);
 	    }
 
