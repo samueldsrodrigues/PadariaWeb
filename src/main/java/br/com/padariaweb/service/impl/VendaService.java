@@ -1,6 +1,7 @@
 package br.com.padariaweb.service.impl;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,8 +35,20 @@ public class VendaService extends GenericoCRUDManager<Venda, Long> implements IV
 	@Autowired
 	private IProdutoDao produtoDao;
 
-	public List<Venda> pesquisarVenda(Venda filtro, Integer first, Integer maxPerPage) {
-		return vendaDao.pesquisarVenda(filtro, first, maxPerPage);
+	public List<Venda> pesquisarVenda(Venda filtro, Date dtInicial, Date dtFinal, Integer first, Integer maxPerPage) {
+	    
+		if (dtFinal != null) {
+		    Calendar calendar = Calendar.getInstance();
+		    calendar.setTime(dtFinal);
+		    calendar.set(Calendar.HOUR_OF_DAY, 23);
+		    calendar.set(Calendar.MINUTE, 59);
+		    calendar.set(Calendar.SECOND, 59);
+		    calendar.set(Calendar.MILLISECOND, 999);
+
+		    dtFinal = calendar.getTime();
+		}
+		
+		return vendaDao.pesquisarVenda(filtro, dtInicial, dtFinal, first, maxPerPage);
 	}
 
 	public void salvar(Venda venda) throws ValidacaoException {
@@ -59,12 +72,12 @@ public class VendaService extends GenericoCRUDManager<Venda, Long> implements IV
 
 	@Override
 	public void cancelarVenda(Venda venda) throws ValidacaoException {
-		
+
 		if (venda == null || venda.getSqVenda() == null) {
 			throw new ValidacaoException("Venda inválida para cancelamento.");
 		}
 
-		if(venda.getStatus() != null && "CANCELADA".equalsIgnoreCase(venda.getStatus().trim())) {
+		if (venda.getStatus() != null && "CANCELADA".equalsIgnoreCase(venda.getStatus().trim())) {
 			throw new ValidacaoException("Venda já está cancelada.");
 		}
 

@@ -1,6 +1,7 @@
 package br.com.padariaweb.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +30,8 @@ public class VendaBean extends AbstractView implements Serializable {
 	private @Getter @Setter List<Venda> vendas;
 	private @Getter @Setter Venda filtro;
 	private @Getter @Setter Venda vendaSelecionada;
+	private @Getter @Setter Date dtInicial;
+	private @Getter @Setter Date dtFinal;
 
 	@SuppressWarnings("unused")
 	private static final String URL_PAGINA = "/pages/vendas/listar";
@@ -41,12 +44,14 @@ public class VendaBean extends AbstractView implements Serializable {
 
 	public void limpar() {
 		filtro = new Venda();
+		dtInicial = null;
+		dtFinal = null;
 		vendaSelecionada = new Venda();
 		pesquisar();
 	}
 
 	public void pesquisar() {
-		vendas = vendaService.pesquisarVenda(filtro, null, 500);
+		vendas = vendaService.pesquisarVenda(filtro, dtInicial, dtFinal, null, 500);
 	}
 
 	public String incluir() {

@@ -1,5 +1,6 @@
 package br.com.padariaweb.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -13,15 +14,19 @@ import br.com.padariaweb.entity.Venda;
 public class VendaDao extends GenericoCRUDDAOJPA<Venda, Long> implements IVendaDao {
 
     @SuppressWarnings("unchecked")
-    public List<Venda> pesquisarVenda(Venda filtro, Integer first, Integer maxPerPage) {
+    public List<Venda> pesquisarVenda(Venda filtro, Date dtInicial, Date dtFinal, Integer first, Integer maxPerPage) {
         Criteria c = criteria();
 
         if (filtro.getSqVenda() != null) {
             c.add(Restrictions.eq("sqVenda", filtro.getSqVenda()));
         }
 
-        if (filtro.getDtVenda() != null) {
-            c.add(Restrictions.eq("dtVenda", filtro.getDtVenda()));
+        if (dtInicial != null) {
+            c.add(Restrictions.ge("dtVenda", dtInicial));
+        }
+
+        if (dtFinal != null) {
+            c.add(Restrictions.le("dtVenda", dtFinal));
         }
 
         if (filtro.getFuncionario() != null && filtro.getFuncionario().getSqFuncionario() != null) {
