@@ -180,8 +180,17 @@
 											</h:column>
 
 											<h:column>
+												<f:facet name="header">Preço</f:facet>
+												<h:outputText
+													value="#{produtoBean.valoresProdutos[produto.sqProduto].preco}">
+													<f:convertNumber type="currency" currencySymbol="R$ " />
+												</h:outputText>
+											</h:column>
+
+											<h:column>
 												<f:facet name="header">Imagem</f:facet>
-												<h:graphicImage value="/resources/img/produto-padrao.png"
+												<h:graphicImage
+													value="#{empty produto.imagem ? '/resources/img/produto-padrao1.png' : produto.imagem}"
 													style="width: 40px; height: 40px; object-fit: cover;" />
 											</h:column>
 
@@ -220,7 +229,7 @@
 			</div>
 			<p:remoteCommand name="excluir"
 				actionListener="#{produtoBean.remover}"
-				oncomplete="handleComplete(xhr, status, args)" update="@(form)" />
+				oncomplete="location.reload();" />
 		</h:form>
 
 
