@@ -38,6 +38,10 @@ public class VendaDao extends GenericoCRUDDAOJPA<Venda, Long> implements IVendaD
             c.createAlias("cliente", "cliente");
             c.add(Restrictions.eq("cliente.sqCliente", filtro.getCliente().getSqCliente()));
         }
+        
+        if (filtro.getStatus() != null && !filtro.getStatus().trim().isEmpty()) {
+            c.add(Restrictions.eq("status", filtro.getStatus()));
+        }
 
         if (first != null) {
             c.setFirstResult(first);
