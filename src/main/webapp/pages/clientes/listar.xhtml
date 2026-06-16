@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:component="http://xmlns.jcp.org/jsf/composite/components"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/pages/template/template.xhtml">
+	<ui:define name="body">
+		<script>
+			$(document).ready(function() {
+				$('.demo4').click(function() {
+					swal({
+						title : "Você tem certeza?",
+						text : "O cliente será removido do sistema!",
+						type : "warning",
+						showCancelButton : true,
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "Excluir!",
+						cancelButtonText : "Cancelar",
+						closeOnConfirm : false,
+						closeOnCancel : true
+					}, function(isConfirm) {
+						if (isConfirm) {
+							excluir();
+						}
+					});
+				});
+
+				var tableResult = $('#resultadoDT').DataTable({
+					"bInfo" : false,
+					"destroy" : true,
+					"language" : {
+						"url" : "../../../resources/i18n/pt_BR.json"
+					}
+				/*,
+									dom: 'lfBrtip',
+				 			        buttons: [
+							            'print', 'excel', 'pdf'
+							        ] */
+				});
+			});
+
+			function handleComplete(xhr, status, args) {
+				if (args.retorno == 'ok') {
+					swal("Removido", "Cliente removido com sucesso!", "success");
+				} else if (args.retorno == 'nOk') {
+					swal("Cancelado",
+							"O cliente autenticado não poderá ser excluído!",
+							"info");
+				} else {
+					swal("Cancelado", "Ocorreu um erro ao remover o cliente!",
+							"error");
+				}
+			}
+		</script>
+
+		<!-- Header -->
+		<div>
+			<component:breadcrumb titulo="Clientes" imgTitulo="fa fa-user"
+				primeiro="Início" segundo="Clientes" imgPrimeiro="fa fa-home"
+				imgSegundo="fa fa-user" />
+		</div>
+
+		<h:form prependId="false">
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<i class="fa fa-filter fa-fw" /> Filtro <span> <a
+									class="collapse-link" style="color: #2f4050; float: right;"><i
+										class="fa fa-chevron-up"></i></a>
+								</span>
+							</div>
+							<!-- Filtro de Pesquisa -->
+							<div class="ibox-content">
+								<div class="row">
+									<div class="form-horizontal">
+										<div class="form-group">
+											<label class="col-lg-1 control-label" style="width: 130px;">Nome</label>
+											<div class="col-lg-2">
+												<h:inputText value="#{clienteBean.filtro.nome}"
+													styleClass="form-control" placeholder="Nome do Cliente"
+													title="Pesquisar Cliente" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-lg-1 control-label">CPF</label>
+											<div class="col-lg-2">
+												<h:inputText value="#{clienteBean.filtro.cpf}"
+													styleClass="form-control" placeholder="CPF do Cliente"
+													title="Pesquisar Cliente" />
+											</div>
+										</div>
+
+
+
+
+
+
+										<div class="hr-line-dashed"></div>
+										<!-- Ações -->
+										<div class="form-group">
+											<div style="margin-left: 4%;">
+												<h:commandLink styleClass="btn btn-primary"
+													action="#{clienteBean.pesquisar}">
+													<i class="fa fa-search fa-fw"></i> Pesquisar
+												</h:commandLink>
+												<h:commandLink styleClass="btn btn-default"
+													style="margin-left: 15px" action="#{clienteBean.limpar}">
+													<i class="fa fa-trash-o fa-fw"></i> Limpar
+												</h:commandLink>
+												<h:commandLink styleClass="btn btn-primary"
+													style="float: right;margin-right: 30px;"
+													action="#{clienteBean.incluir}">
+													<i class="fa fa-plus fa-fw"></i> Incluir
+												</h:commandLink>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<h:panelGroup styleClass="col-lg-12">
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<div class="form-group">
+									<span class="title" style="font-size: 16px; font-weight: 400;">Resultado</span>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div class="table-responsive">
+									<h:panelGroup class="panel-body" id="dataTable" layout="block">
+
+										<h:dataTable var="cliente" id="resultadoDT"
+											value="#{clienteBean.clientes}"
+											styleClass="table table-striped table-bordered table-hover dataTables-example dataTable dtr-inline"
+											columnClasses="text-left, text-left, text-left, text-left, text-left, text-left">
+
+											<h:column headerClass="col-md-1">
+												<f:facet name="header">ID</f:facet>
+												<h:outputText value="#{cliente.sqCliente}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Nome</f:facet>
+												<h:outputText value="#{cliente.nome}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">CPF</f:facet>
+												<h:outputText value="#{cliente.cpf}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Telefone</f:facet>
+												<h:outputText value="#{cliente.telefone}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Email</f:facet>
+												<h:outputText value="#{cliente.email}" />
+											</h:column>
+
+
+											<h:column headerClass="col-md-1 text-center">
+												<f:facet name="header">Ações</f:facet>
+												<div class="text-center">
+													<h:commandLink action="#{clienteBean.alterar}"
+														title="Alterar Cliente">
+														<i class="fa fa-pencil fa-fw" />
+														<f:setPropertyActionListener value="#{cliente}"
+															target="#{clienteBean.clienteSelecionado}" />
+													</h:commandLink>
+
+													<h:commandLink styleClass="demo4" title="Excluir Cliente">
+														<i class="fa fa-trash-o fa-fw" />
+														<f:setPropertyActionListener value="#{cliente}"
+															target="#{clienteBean.clienteSelecionado}" />
+														<f:ajax />
+													</h:commandLink>
+												</div>
+											</h:column>
+
+										</h:dataTable>
+										<!-- <component:paginador dataModel="#{funcionarioBean.usuarios}" load="#{funcionarioBean.load}" idDatatable="dataTable" /> -->
+									</h:panelGroup>
+								</div>
+							</div>
+						</div>
+					</h:panelGroup>
+				</div>
+			</div>
+			<p:remoteCommand name="excluir"
+				actionListener="#{clienteBean.remover}"
+				oncomplete="location.reload();" />
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>
+</html>
