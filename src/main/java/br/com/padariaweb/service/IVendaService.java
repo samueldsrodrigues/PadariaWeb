@@ -11,6 +11,6 @@ public interface IVendaService extends IGenericoCRUDManager<Venda, Long> {
 
 	public void salvar(Venda venda) throws ValidacaoException;
 	
-	public void excluirVendaCompleta(Venda venda) throws ValidacaoException;
+	void cancelarVenda(Venda venda) throws ValidacaoException;
 
 }

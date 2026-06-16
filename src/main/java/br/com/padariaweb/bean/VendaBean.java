@@ -55,7 +55,7 @@ public class VendaBean extends AbstractView implements Serializable {
 
 	public void remover() throws ValidacaoException {
 		RequestContext context = RequestContext.getCurrentInstance();
-		vendaService.excluirVendaCompleta(vendaSelecionada);
+		vendaService.cancelarVenda(vendaSelecionada);
 		context.addCallbackParam("retorno", "ok");
 	}
 	
