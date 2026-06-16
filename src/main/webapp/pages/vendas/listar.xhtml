@@ -15,17 +15,17 @@
 				$('.demo4').click(function() {
 					swal({
 						title : "Você tem certeza?",
-						text : "A venda será removida do sistema!",
+						text : "A venda será inativada no sistema!",
 						type : "warning",
 						showCancelButton : true,
 						confirmButtonColor : "#DD6B55",
-						confirmButtonText : "Excluir!",
-						cancelButtonText : "Cancelar",
+						confirmButtonText : "Cancelar Venda!",
+						cancelButtonText : "Voltar",
 						closeOnConfirm : false,
 						closeOnCancel : true
 					}, function(isConfirm) {
 						if (isConfirm) {
-							excluir();
+							cancelar();
 						}
 					});
 				});
@@ -142,6 +142,11 @@
 												</h:outputText>
 											</h:column>
 
+											<h:column>
+												<f:facet name="header">Status</f:facet>
+												<h:outputText value="#{venda.status}" />
+											</h:column>
+
 											<h:column headerClass="col-md-1 text-center">
 												<f:facet name="header">Ações</f:facet>
 												<div class="text-center">
@@ -153,8 +158,9 @@
 															target="#{vendaBean.vendaSelecionada}" />
 													</h:commandLink>
 
-													<h:commandLink styleClass="demo4" title="Excluir Venda">
-														<i class="fa fa-trash-o fa-fw" />
+													<h:commandLink styleClass="demo4" title="Cancelar Venda"
+														rendered="#{venda.status ne 'CANCELADA'}">
+														<i class="fa fa-ban fa-fw" />
 														<f:setPropertyActionListener value="#{venda}"
 															target="#{vendaBean.vendaSelecionada}" />
 														<f:ajax />
@@ -171,10 +177,11 @@
 						</div>
 					</h:panelGroup>
 				</div>
-	
+
 			</div>
 
-			<p:remoteCommand name="excluir" actionListener="#{vendaBean.remover}"
+			<p:remoteCommand name="cancelar"
+				actionListener="#{vendaBean.remover}"
 				oncomplete="location.reload();" />
 
 
