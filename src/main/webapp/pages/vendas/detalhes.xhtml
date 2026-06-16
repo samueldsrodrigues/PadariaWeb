@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:component="http://xmlns.jcp.org/jsf/composite/components">
+
+<ui:composition template="/pages/template/template.xhtml">
+	<ui:define name="body">
+
+		<script>
+			$(document).ready(function() {
+				select2();
+			});
+		</script>
+
+
+		<div>
+			<component:breadcrumb titulo="Vendas" imgTitulo="fa fa-tag"
+				primeiro="Início" segundo="Vendas" terceiro="Venda" imgPrimeiro="fa fa-home"
+				imgSegundo="fa fa-tag" />
+		</div>
+
+		<!-- Header -->
+
+		<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+			<div class="col-lg-12">
+				<div class="tabs-container">
+					<h:form prependId="false" enctype="multipart/form-data">
+						<ul class="nav nav-tabs">
+							<li class="active"><h:commandLink data-toggle="tab"
+									action="#tab-1" value="Detalhes da Venda" /></li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="tab-1" class="tab-pane active">
+								<div class="panel-body">
+									<fieldset class="form-horizontal">
+
+
+										<h3>Informações da Venda</h3>
+
+										<p>
+											<strong>ID:</strong>
+											<h:outputText value="#{vendaDetalhesBean.venda.sqVenda}" />
+										</p>
+
+										<p>
+											<strong>Data:</strong>
+											<h:outputText value="#{vendaDetalhesBean.venda.dtVenda}">
+												<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+											</h:outputText>
+										</p>
+
+										<p>
+											<strong>Cliente:</strong>
+											<h:outputText
+												value="#{empty vendaDetalhesBean.venda.cliente ? 'Não informado' : vendaDetalhesBean.venda.cliente.nome}" />
+										</p>
+
+										<p>
+											<strong>Funcionário:</strong>
+											<h:outputText
+												value="#{empty vendaDetalhesBean.venda.funcionario ? 'Não informado' : vendaDetalhesBean.venda.funcionario.nome}" />
+										</p>
+
+										<p>
+											<strong>Total:</strong>
+											<h:outputText value="#{vendaDetalhesBean.venda.vlTotal}">
+												<f:convertNumber type="currency" currencySymbol="R$ " />
+											</h:outputText>
+										</p>
+
+										<h3>Produtos da Venda</h3>
+
+										<h:dataTable value="#{vendaDetalhesBean.itensVenda}"
+											var="item" styleClass="table table-striped table-bordered">
+
+											<h:column>
+												<f:facet name="header">Produto</f:facet>
+												<h:outputText value="#{item.produto.nome}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Quantidade</f:facet>
+												<h:outputText value="#{item.quantidade}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Preço Unitário</f:facet>
+												<h:outputText value="#{item.precoUnitario}">
+													<f:convertNumber type="currency" currencySymbol="R$ " />
+												</h:outputText>
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Subtotal</f:facet>
+												<h:outputText value="#{item.subtotal}">
+													<f:convertNumber type="currency" currencySymbol="R$ " />
+												</h:outputText>
+											</h:column>
+
+										</h:dataTable>
+
+										<hr />
+
+										<h3>Formas de Pagamento</h3>
+
+										<h:dataTable value="#{vendaDetalhesBean.pagamentosVenda}"
+											var="pagamento"
+											styleClass="table table-striped table-bordered">
+
+											<h:column>
+												<f:facet name="header">Tipo</f:facet>
+												<h:outputText value="#{pagamento.tipo}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Bandeira</f:facet>
+												<h:outputText
+													value="#{empty pagamento.bandeira ? '-' : pagamento.bandeira}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Parcelas</f:facet>
+												<h:outputText
+													value="#{empty pagamento.qtdParcelas ? '-' : pagamento.qtdParcelas}" />
+											</h:column>
+
+											<h:column>
+												<f:facet name="header">Valor</f:facet>
+												<h:outputText value="#{pagamento.valor}">
+													<f:convertNumber type="currency" currencySymbol="R$ " />
+												</h:outputText>
+											</h:column>
+
+										</h:dataTable>
+
+										<br />
+
+										<h:commandButton value="Voltar" styleClass="btn btn-default"
+											action="#{vendaDetalhesBean.voltar}" />
+
+
+									</fieldset>
+								</div>
+							</div>
+						</div>
+
+
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
