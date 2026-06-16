@@ -25,11 +25,7 @@ public class Venda implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_seq")
-	@SequenceGenerator(
-	    name = "venda_seq",
-	    sequenceName = "venda_sq_venda_seq",
-	    allocationSize = 1
-	)
+	@SequenceGenerator(name = "venda_seq", sequenceName = "venda_sq_venda_seq", allocationSize = 1)
 	@Column(name = "sq_venda", nullable = false)
 	private @Getter @Setter Long sqVenda;
 
@@ -39,24 +35,25 @@ public class Venda implements Serializable {
 	@Column(name = "dt_venda")
 	private @Getter @Setter Date dtVenda;
 
+	@Column(name = "status")
+	private @Getter @Setter String status;
+
 	@ManyToOne
-    @JoinColumn(name = "fk_funcionario")
+	@JoinColumn(name = "fk_funcionario")
 	private @Getter @Setter Funcionario funcionario;
 
 	@ManyToOne
 	@JoinColumn(name = "fk_cliente")
 	private @Getter @Setter Cliente cliente;
-	
+
 	public Venda() {
 	}
 
 	public Venda(BigDecimal vlTotal, Date dtVenda, Funcionario funcionario, Cliente cliente) {
-	    this.vlTotal = vlTotal;
-	    this.dtVenda = dtVenda;
-	    this.funcionario = funcionario;
-	    this.cliente = cliente;
+		this.vlTotal = vlTotal;
+		this.dtVenda = dtVenda;
+		this.funcionario = funcionario;
+		this.cliente = cliente;
 	}
-	
-	
 
 }
