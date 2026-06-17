@@ -82,7 +82,7 @@
 								<div class="row">
 									<div class="form-horizontal">
 										<div class="form-group">
-											<label class="col-lg-1 control-label" style="width: 130px;">Nome</label>
+											<label class="col-lg-1 control-label">Nome</label>
 											<div class="col-lg-2">
 												<h:inputText value="#{funcionarioBean.filtro.nome}"
 													styleClass="form-control" placeholder="Nome do Funcionário"
@@ -158,12 +158,12 @@
 												<h:outputText value="#{funcionario.sqFuncionario}" />
 											</h:column>
 
-											<h:column headerClass="col-">
+											<h:column headerClass="col-md-2">
 												<f:facet name="header">Nome</f:facet>
 												<h:outputText value="#{funcionario.nome}" />
 											</h:column>
 
-											<h:column headerClass="col-">
+											<h:column headerClass="col-md-1">
 												<f:facet name="header">Cargo</f:facet>
 												<h:outputText value="#{funcionario.cargo.nome}" />
 											</h:column>
@@ -173,7 +173,7 @@
 												<h:outputText value="#{funcionario.email}" />
 											</h:column>
 
-											<h:column headerClass="col-md-1">
+											<h:column headerClass="col-md-2">
 												<f:facet name="header">Turno</f:facet>
 												<h:outputText value="#{funcionario.turno.hrEntrada} - #{funcionario.turno.hrSaida}" />
 											</h:column>
