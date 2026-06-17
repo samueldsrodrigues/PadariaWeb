@@ -1,6 +1,52 @@
 # PadariaWeb
 
-Sistema web para gerenciamento de padarias desenvolvido em Java.
+Sistema web para gerenciamento de padarias desenvolvido em Java, permitindo o controle de produtos, clientes, funcionários, vendas e encomendas. A aplicação foi construída utilizando Java EE e segue o padrão MVC para organização das camadas do sistema.
+
+## Demonstração
+
+### Gestão de Produtos
+
+#### Listagem de Produtos
+
+![Listagem de Produtos](docs/produtos-listagem.png)
+
+#### Pesquisa de Produtos
+
+![Pesquisa de Produtos](docs/produtos-pesquisa.png)
+
+#### Cadastro de Produtos
+
+![Cadastro de Produtos](docs/produtos-formulario.png)
+
+---
+
+### Gestão de Funcionários
+
+![Funcionários](docs/funcionarios.png)
+
+---
+
+### Gestão de Vendas
+
+#### Inclusão de Venda
+
+![Inclusão de Venda](docs/vendas-inclusao.png)
+
+#### Pesquisa e Listagem de Vendas
+
+![Listagem de Vendas](docs/vendas-listagem.png)
+
+#### Cancelamento de Venda
+
+![Cancelamento de Venda](docs/vendas-cancelamento.png)
+
+---
+
+### Modelo do Banco de Dados
+
+![DER](docs/der_padariaweb.png)
+
+---
 
 ## Funcionalidades
 
@@ -11,7 +57,11 @@ Sistema web para gerenciamento de padarias desenvolvido em Java.
 - Controle de encomendas
 - Pesquisa e filtros
 - Paginação de resultados
+- Cancelamento de vendas
+- Controle de estoque
 - Autenticação e controle de acesso
+
+---
 
 ## Tecnologias utilizadas
 
@@ -21,64 +71,107 @@ Sistema web para gerenciamento de padarias desenvolvido em Java.
 - JPA / Hibernate
 - PostgreSQL
 - Maven
-- Tomcat
+- Apache Tomcat
+- Lombok
+- OmniFaces
+- Spring Security
+- HTML5
+- CSS3
+- JavaScript
 - Git
+- GitHub
 - Linux Ubuntu
+
+---
 
 ## Arquitetura
 
-O sistema segue o padrão MVC (Model-View-Controller), utilizando JPA/Hibernate para persistência de dados e JSF/PrimeFaces para a camada de apresentação.
+O sistema segue o padrão MVC (Model-View-Controller):
+
+### Model
+- Entidades JPA
+- DAO (Data Access Object)
+- Services
+
+### View
+- JSF (Facelets)
+- PrimeFaces
+- HTML
+- CSS
+- JavaScript
+
+### Controller
+- Managed Beans responsáveis pelo fluxo da aplicação
+
+---
 
 ## Banco de Dados
 
-Banco de dados PostgreSQL com modelagem relacional para gerenciamento das entidades do sistema.
+- PostgreSQL
+- Modelagem relacional normalizada
+- Relacionamentos entre clientes, funcionários, produtos, vendas e encomendas
+- Persistência utilizando JPA/Hibernate
+
+---
+
+## Principais entidades
+
+- Produto
+- Cliente
+- Funcionário
+- Cargo
+- Turno
+- Venda
+- Encomenda
+- Forma de Pagamento
+- Valor do Produto
+- Contrato de Funcionário
+
+---
 
 ## Como executar
 
-1. Clonar o repositório
-2. Configurar PostgreSQL
-3. Executar os scripts SQL
-4. Configurar o Tomcat
-5. Executar o projeto
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/samueldsrodrigues/PadariaWeb.git
+```
+
+2. Importe o projeto em uma IDE Java EE (Eclipse EE recomendado).
+
+3. Configure o banco de dados PostgreSQL.
+
+4. Execute os scripts SQL de criação das tabelas.
+
+5. Ajuste as credenciais de conexão com o banco.
+
+6. Execute o projeto no Apache Tomcat.
+
+7. Acesse no navegador:
+
+```text
+http://localhost:8080/PadariaWeb
+```
+
+---
+
+## Conceitos aplicados
+
+- Programação Orientada a Objetos (POO)
+- Arquitetura MVC
+- DAO Pattern
+- Paginação
+- Filtros de pesquisa
+- Relacionamentos JPA
+- Segurança com Spring Security
+- Persistência com Hibernate
+- Desenvolvimento Web com JSF e PrimeFaces
+
+---
 
 ## Autor
 
-Samuel de Sousa Rodrigues
+Samuel Rodrigues
 
-
-# Screenshots
-
-## Gestão de Produtos
-
-### Listagem de Produtos
-![Listagem de Produtos](docs/produtos-listagem.png)
-
-### Pesquisa de Produtos
-![Pesquisa de Produtos](docs/produtos-pesquisa.png)
-
-### Cadastro de Produtos
-![Cadastro de Produtos](docs/produtos-formulario.png)
-
----
-
-## Gestão de Funcionários
-
-![Funcionários](docs/funcionarios.png)
-
----
-
-## Gestão de Vendas
-
-### Inclusão de Venda
-![Inclusão de Venda](docs/vendas-inclusao.png)
-
-### Pesquisa e Listagem de Vendas
-![Listagem de Vendas](docs/vendas-listagem.png)
-
----
-
-<h2>Modelo do Banco de Dados</h2>
-
-<p align="center">
-    <img src="docs/der_padariaweb.png" width="1000">
-</p>
+- GitHub: https://github.com/samueldsrodrigues
+- LinkedIn: https://www.linkedin.com/in/samueldsrodrigues/
