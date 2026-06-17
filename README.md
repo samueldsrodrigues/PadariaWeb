@@ -36,10 +36,6 @@ Sistema web para gerenciamento de padarias desenvolvido em Java, permitindo o co
 
 ![Listagem de Vendas](docs/vendas-listagem.png)
 
-#### Cancelamento de Venda
-
-![Cancelamento de Venda](docs/vendas-cancelamento.png)
-
 ---
 
 ### Modelo do Banco de Dados
