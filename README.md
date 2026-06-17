@@ -45,5 +45,38 @@ Banco de dados PostgreSQL com modelagem relacional para gerenciamento das entida
 
 Samuel de Sousa Rodrigues
 
-<img width="1061" height="1315" alt="der_padariaweb" src="https://github.com/user-attachments/assets/7184b68a-0ab1-459f-9694-652a9f016f91" />
 
+# Screenshots
+
+## Gestão de Produtos
+
+### Listagem de Produtos
+![Listagem de Produtos](docs/produtos-listagem.png)
+
+### Pesquisa de Produtos
+![Pesquisa de Produtos](docs/produtos-pesquisa.png)
+
+### Cadastro de Produtos
+![Cadastro de Produtos](docs/produtos-formulario.png)
+
+---
+
+## Gestão de Funcionários
+
+![Funcionários](docs/funcionarios.png)
+
+---
+
+## Gestão de Vendas
+
+### Inclusão de Venda
+![Inclusão de Venda](docs/vendas-inclusao.png)
+
+### Pesquisa e Listagem de Vendas
+![Listagem de Vendas](docs/vendas-listagem.png)
+
+---
+
+## Modelo do Banco de Dados
+
+![DER do Banco](docs/der_padariaweb.png)
