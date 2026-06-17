@@ -44,3 +44,6 @@ Banco de dados PostgreSQL com modelagem relacional para gerenciamento das entida
 ## Autor
 
 Samuel de Sousa Rodrigues
+
+<img width="1061" height="1315" alt="der_padariaweb" src="https://github.com/user-attachments/assets/7184b68a-0ab1-459f-9694-652a9f016f91" />
+
