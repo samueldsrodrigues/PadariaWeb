@@ -77,6 +77,8 @@ Samuel de Sousa Rodrigues
 
 ---
 
-## Modelo do Banco de Dados
+<h2>Modelo do Banco de Dados</h2>
 
-![DER do Banco](docs/der_padariaweb.png)
+<p align="center">
+    <img src="docs/der_padariaweb.png" width="1000">
+</p>
