@@ -1,6 +1,8 @@
 package br.com.padariaweb.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.List;
 
@@ -44,6 +46,9 @@ public class VendaBean extends AbstractView implements Serializable {
 	private @Getter @Setter Venda vendaSelecionada;
 	private @Getter @Setter Date dtInicial;
 	private @Getter @Setter Date dtFinal;
+	private @Getter BigDecimal totalVendido;
+	private @Getter Integer quantidadeVendas;
+	private @Getter BigDecimal ticketMedio;
 
 	@SuppressWarnings("unused")
 	private static final String URL_PAGINA = "/pages/vendas/listar";
@@ -69,8 +74,19 @@ public class VendaBean extends AbstractView implements Serializable {
 		pesquisar();
 	}
 
+//	public void pesquisar() {
+//		vendas = vendaService.pesquisarVenda(filtro, dtInicial, dtFinal, null, 500);
+//	}
+	
 	public void pesquisar() {
-		vendas = vendaService.pesquisarVenda(filtro, dtInicial, dtFinal, null, 500);
+	    vendas = vendaService.pesquisarVenda(
+	            filtro,
+	            dtInicial,
+	            dtFinal,
+	            null,
+	            500);
+
+	    calcularResumo();
 	}
 
 	public String incluir() {
@@ -85,5 +101,30 @@ public class VendaBean extends AbstractView implements Serializable {
 	
 	public String visualizar() {
 	    return redirect("/pages/vendas/detalhes?venda=" + vendaSelecionada.getSqVenda());
+	}
+	
+	private void calcularResumo() {
+
+	    quantidadeVendas = vendas.size();
+
+	    totalVendido = BigDecimal.ZERO;
+
+	    for (Venda venda : vendas) {
+
+	        if (!"CANCELADA".equals(venda.getStatus())
+	                && venda.getVlTotal() != null) {
+
+	            totalVendido = totalVendido.add(venda.getVlTotal());
+	        }
+	    }
+
+	    if (quantidadeVendas > 0) {
+	        ticketMedio = totalVendido.divide(
+	                BigDecimal.valueOf(quantidadeVendas),
+	                2,
+	                RoundingMode.HALF_UP);
+	    } else {
+	        ticketMedio = BigDecimal.ZERO;
+	    }
 	}
 }
