@@ -105,24 +105,25 @@ public class VendaBean extends AbstractView implements Serializable {
 	
 	private void calcularResumo() {
 
-	    quantidadeVendas = vendas.size();
+		quantidadeVendas = 0;
+		totalVendido = BigDecimal.ZERO;
 
-	    totalVendido = BigDecimal.ZERO;
+		for (Venda venda : vendas) {
 
-	    for (Venda venda : vendas) {
+		    if (!"CANCELADA".equals(venda.getStatus())
+		            && venda.getVlTotal() != null) {
 
-	        if (!"CANCELADA".equals(venda.getStatus())
-	                && venda.getVlTotal() != null) {
+		        quantidadeVendas++;
 
-	            totalVendido = totalVendido.add(venda.getVlTotal());
-	        }
-	    }
+		        totalVendido = totalVendido.add(venda.getVlTotal());
+		    }
+		}
 
 	    if (quantidadeVendas > 0) {
-	        ticketMedio = totalVendido.divide(
-	                BigDecimal.valueOf(quantidadeVendas),
-	                2,
-	                RoundingMode.HALF_UP);
+	    	ticketMedio = totalVendido.divide(
+	    	        BigDecimal.valueOf(quantidadeVendas),
+	    	        2,
+	    	        RoundingMode.HALF_UP);
 	    } else {
 	        ticketMedio = BigDecimal.ZERO;
 	    }
