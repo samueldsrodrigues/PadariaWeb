@@ -178,6 +178,48 @@
 								<div class="table-responsive">
 									<h:panelGroup class="panel-body" id="dataTable" layout="block">
 
+										<div class="row">
+											<div class="col-lg-4">
+												<div class="ibox">
+													<div class="ibox-title">
+														<span>Total Vendido</span>
+													</div>
+													<div class="ibox-content">
+														<h2>
+															<h:outputText value="#{vendaBean.totalVendido}">
+																<f:convertNumber type="currency" currencySymbol="R$ " />
+															</h:outputText>
+														</h2>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-4">
+												<div class="ibox">
+													<div class="ibox-title">
+														<span>Vendas Ativas</span>
+													</div>
+													<div class="ibox-content">
+														<h2>#{vendaBean.quantidadeVendas}</h2>
+													</div>
+												</div>
+											</div>
+
+											<div class="col-lg-4">
+												<div class="ibox">
+													<div class="ibox-title">
+														<span>Ticket Médio</span>
+													</div>
+													<div class="ibox-content">
+														<h2>
+															<h:outputText value="#{vendaBean.ticketMedio}">
+																<f:convertNumber type="currency" currencySymbol="R$ " />
+															</h:outputText>
+														</h2>
+													</div>
+												</div>
+											</div>
+										</div>
 										<h:dataTable var="venda" id="resultadoDT"
 											value="#{vendaBean.vendas}"
 											styleClass="table table-striped table-bordered table-hover dataTables-example dataTable dtr-inline">
