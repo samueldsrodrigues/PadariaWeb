@@ -87,5 +87,17 @@ public class ProdutoBean extends AbstractView implements Serializable {
 		context.addCallbackParam("retorno", "ok");
 
 	}
+	
+	public String obterStatusEstoque(Produto produto) {
+	    if (produto.getEstoque() == null || produto.getEstoque() == 0) {
+	        return "Sem estoque";
+	    }
+
+	    if (produto.getEstoque() <= 10) {
+	        return "Estoque baixo";
+	    }
+
+	    return "Normal";
+	}
 
 }
