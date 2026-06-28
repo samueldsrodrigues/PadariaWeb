@@ -16,6 +16,7 @@
 					
 				
 	<context:annotation-config /> 
+	
 
 	<context:component-scan base-package="br.com.padariaweb">
 		<context:include-filter type="regex" expression="br.com.padariaweb.dao.*Dao" />
