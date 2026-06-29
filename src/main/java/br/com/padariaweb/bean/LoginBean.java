@@ -67,7 +67,8 @@ public class LoginBean implements AuthenticationProvider, Serializable{
 		
 		func = funcExist(func);
 		if(func != null){
-			autorizacoes.add(new SimpleGrantedAuthority(func.getCargo().getNome()));
+			String role = gerarRole(func.getCargo().getNome());
+			autorizacoes.add(new SimpleGrantedAuthority(role));
 			
 			customAuthentication = new UsernamePasswordAuthenticationToken(func, senha, autorizacoes);
 			return customAuthentication;
@@ -80,6 +81,28 @@ public class LoginBean implements AuthenticationProvider, Serializable{
 	@Override
 	public boolean supports(Class<?> arg0) {
 		return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(arg0));
+	}
+	
+	private String gerarRole(String cargo) {
+	    if (cargo == null) {
+	        return "ROLE_SEM_CARGO";
+	    }
+
+	    String role = cargo.trim()
+	            .toUpperCase()
+	            .replace(" ", "_")
+	            .replace("Ç", "C")
+	            .replace("Ã", "A")
+	            .replace("Á", "A")
+	            .replace("À", "A")
+	            .replace("É", "E")
+	            .replace("Ê", "E")
+	            .replace("Í", "I")
+	            .replace("Ó", "O")
+	            .replace("Ô", "O")
+	            .replace("Ú", "U");
+
+	    return "ROLE_" + role;
 	}
 
 }

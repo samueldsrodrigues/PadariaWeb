@@ -1,7 +1,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:sec="http://www.springframework.org/schema/security"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans	
@@ -13,107 +15,142 @@
 					http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
 					http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
 					http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-					
-				
-	<context:annotation-config /> 
-	
 
-	<context:component-scan base-package="br.com.padariaweb">
-		<context:include-filter type="regex" expression="br.com.padariaweb.dao.*Dao" />
-		<context:include-filter type="regex" expression="br.com.padariaweb.dao.impl.*Dao" />
-		<context:include-filter type="regex" expression="br.com.padariaweb.service.*Service" />
-		<context:include-filter type="regex" expression="br.com.padariaweb.service.impl.*Service" />
-        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/> 
+
+	<context:annotation-config />
+
+
+	<context:component-scan
+		base-package="br.com.padariaweb">
+		<context:include-filter type="regex"
+			expression="br.com.padariaweb.dao.*Dao" />
+		<context:include-filter type="regex"
+			expression="br.com.padariaweb.dao.impl.*Dao" />
+		<context:include-filter type="regex"
+			expression="br.com.padariaweb.service.*Service" />
+		<context:include-filter type="regex"
+			expression="br.com.padariaweb.service.impl.*Service" />
+		<context:exclude-filter
+			expression="org.springframework.stereotype.Controller"
+			type="annotation" />
 	</context:component-scan>
-	
-	<bean id="transactionManagerPadrao" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+
+	<bean id="transactionManagerPadrao"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"
+			ref="entityManagerFactory" />
 	</bean>
 
-	<bean id="jpaPropertyMap" class="org.springframework.beans.factory.config.MapFactoryBean">
+	<bean id="jpaPropertyMap"
+		class="org.springframework.beans.factory.config.MapFactoryBean">
 		<property name="sourceMap">
 			<map>
 				<entry key="hibernate.show_sql" value="false" />
 				<entry key="hibernate.default_schema" value="public" />
 				<entry key="hibernate.format_sql" value="false" />
 				<entry key="hibernate.use_sql_comments" value="true" />
-				<entry key="hibernate.current_session_context_class" value="thread" />
-				<entry key="hibernate.cache.use_second_level_cache" value="false" />
+				<entry key="hibernate.current_session_context_class"
+					value="thread" />
+				<entry key="hibernate.cache.use_second_level_cache"
+					value="false" />
 				<entry key="hibernate.cache.use_query_cache" value="false" />
 				<entry key="hibernate.validator.apply_to_ddl" value="false" />
-				<entry key="hibernate.validator.autoregister_listeners" value="false" />
-				<entry key="hibernate.enable_lazy_load_no_trans" value="true"/>
-<!-- 				<entry key="hibernate.hbm2ddl.auto" value="validate"/> -->
-				
+				<entry key="hibernate.validator.autoregister_listeners"
+					value="false" />
+				<entry key="hibernate.enable_lazy_load_no_trans" value="true" />
+				<!-- <entry key="hibernate.hbm2ddl.auto" value="validate"/> -->
+
 			</map>
 		</property>
 	</bean>
-			
- 	<tx:annotation-driven transaction-manager="transactionManagerPadrao" />
-	
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+
+	<tx:annotation-driven
+		transaction-manager="transactionManagerPadrao" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="padariaWebDataSource" />
 		<property name="jpaPropertyMap" ref="jpaPropertyMap" />
 		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="false" />
-				<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+				<property name="databasePlatform"
+					value="org.hibernate.dialect.PostgreSQLDialect" />
 				<property name="generateDdl" value="false" />
 			</bean>
 		</property>
-		
-		<property name="packagesToScan" value="br.com.padariaweb.entity" />
+
+		<property name="packagesToScan"
+			value="br.com.padariaweb.entity" />
 	</bean>
-	
+
 	<bean id="padariaWebDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.postgresql.Driver" />
-		
+		<property name="driverClassName"
+			value="org.postgresql.Driver" />
+
 		<!-- House -->
-		<property name="url" value="jdbc:postgresql://localhost:5432/padariaweb" />
+		<property name="url"
+			value="jdbc:postgresql://localhost:5432/padariaweb" />
 		<property name="username" value="postgres" />
 		<property name="password" value="postgres" />
-		
+
 	</bean>
 
-	<http auto-config="true" authentication-manager-ref="userITAuthencticationManager" xmlns="http://www.springframework.org/schema/security">
-        <access-denied-handler error-page="/acessoNegado.xhtml"/>
+	<http auto-config="true"
+		authentication-manager-ref="userITAuthencticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<access-denied-handler
+			error-page="/acessoNegado.xhtml" />
 
-        <intercept-url pattern="/loginError.xhtml"   						access="IS_AUTHENTICATED_FULLY" />
-         
-        <intercept-url pattern="/pages/user/primeiroAcesso.xhtml"			access="ROLE_USUARIO"/>
-        <intercept-url pattern="/pages/user/**" 							access="ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA,ROLE_PERFIL,ROLE_RELATORIO_FINANCEIRO,ROLE_RELATORIO_GERENCIAL"/>
+		<intercept-url pattern="/login.xhtml"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/resources/**"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
 
-        <intercept-url pattern="/pages/admin/perfil/**" 					access="ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA,ROLE_PERFIL,ROLE_RELATORIO_FINANCEIRO,ROLE_RELATORIO_GERENCIAL"/>
-        <intercept-url pattern="/pages/admin/relatorios/financeiro/**" 		access="ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA,ROLE_PERFIL,ROLE_RELATORIO_FINANCEIRO,ROLE_RELATORIO_GERENCIAL"/>
-        <intercept-url pattern="/pages/admin/relatorios/gerencial/**" 		access="ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA,ROLE_PERFIL,ROLE_RELATORIO_FINANCEIRO,ROLE_RELATORIO_GERENCIAL"/>
-         
-        <intercept-url pattern="/pages/admin/loja/**" 						access="ROLE_ROOT,ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA"/>
-       	<intercept-url pattern="/pages/admin/grupo-loja/**" 				access="ROLE_ROOT,ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA"/>
-        <intercept-url pattern="/pages/admin/usuario/**" 					access="ROLE_ROOT,ROLE_USUARIO,ROLE_GRUPO_LOJA,ROLE_LOJA"/>
+		<intercept-url pattern="/dashboard.xhtml"
+			access="ROLE_GERENTE,ROLE_CAIXA" />
+		<intercept-url pattern="/index.xhtml"
+			access="ROLE_GERENTE,ROLE_CAIXA" />
 
-		<!-- Interceptors for PRETTYFACES handler -->
-<!--    <intercept-url pattern="/loja" 										access="ROLE_ROOT"/>
-        <intercept-url pattern="/grupo-loja" 								access="ROLE_ROOT"/>
-        <intercept-url pattern="/usuario" 									access="ROLE_ROOT"/> -->
-         
-		<form-login
-              login-page="/login.xhtml"
-              default-target-url="/dashboard.xhtml"
-              always-use-default-target="true"
-              authentication-failure-url="/login.xhtml?error=1"
-              username-parameter="formLogin:j_username"
-              password-parameter="formLogin:j_password"
-         />
-         <logout logout-url="/logout.xhtml" logout-success-url="/login.xhtml" invalidate-session="true"/>
-      </http>
+		<intercept-url pattern="/pages/vendas/**"
+			access="ROLE_GERENTE,ROLE_CAIXA" />
+		<intercept-url pattern="/pages/produtos/**"
+			access="ROLE_GERENTE,ROLE_CAIXA" />
+
+		<intercept-url pattern="/pages/clientes/**"
+			access="ROLE_GERENTE" />
+		<intercept-url pattern="/pages/funcionarios/**"
+			access="ROLE_GERENTE" />
+		<intercept-url pattern="/pages/encomendas/**"
+			access="ROLE_GERENTE" />
+		<intercept-url pattern="/pages/contratos/**"
+			access="ROLE_GERENTE" />
+
+		<intercept-url pattern="/pages/**" access="ROLE_GERENTE" />
+
+		<form-login login-page="/login.xhtml"
+			default-target-url="/dashboard.xhtml"
+			always-use-default-target="true"
+			authentication-failure-url="/login.xhtml?error=1"
+			username-parameter="formLogin:j_username"
+			password-parameter="formLogin:j_password" />
+		<logout logout-url="/logout.xhtml"
+			logout-success-url="/login.xhtml" invalidate-session="true" />
+	</http>
 
 
-      <bean id="customUserAuthenticationProvider" class="br.com.padariaweb.bean.LoginBean"/>
+	<bean id="customUserAuthenticationProvider"
+		class="br.com.padariaweb.bean.LoginBean" />
 
-      <authentication-manager id="userITAuthencticationManager" xmlns="http://www.springframework.org/schema/security">
-              <authentication-provider ref="customUserAuthenticationProvider"/>
-      </authentication-manager>
+	<authentication-manager
+		id="userITAuthencticationManager"
+		xmlns="http://www.springframework.org/schema/security">
+		<authentication-provider
+			ref="customUserAuthenticationProvider" />
+	</authentication-manager>
 
-      <sec:global-method-security secured-annotations="enabled"/>
+	<sec:global-method-security
+		secured-annotations="enabled" />
 </beans>
