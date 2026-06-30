@@ -6,6 +6,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import br.com.padariaweb.entity.Funcionario;
 import br.com.padariaweb.service.IFuncionarioService;
 import br.com.padariaweb.service.IVendaService;
@@ -32,7 +35,29 @@ public class AppBean extends AbstractView implements Serializable {
 	}
 
 	public Funcionario getFuncionarioLogado() {
-		return funcionarioLogado;
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+	    if (authentication != null && authentication.getPrincipal() instanceof Funcionario) {
+	        return (Funcionario) authentication.getPrincipal();
+	    }
+
+	    return null;
+	}
+	
+	public boolean isGerente() {
+	    Funcionario funcionario = getFuncionarioLogado();
+
+	    return funcionario != null
+	            && funcionario.getCargo() != null
+	            && "Gerente".equalsIgnoreCase(funcionario.getCargo().getNome());
+	}
+
+	public boolean isCaixa() {
+	    Funcionario funcionario = getFuncionarioLogado();
+
+	    return funcionario != null
+	            && funcionario.getCargo() != null
+	            && "Caixa".equalsIgnoreCase(funcionario.getCargo().getNome());
 	}
 
 	public void setFuncionarioLogado(Funcionario funcionarioLogado) {
