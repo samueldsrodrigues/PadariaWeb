@@ -37,10 +37,10 @@
 								<span class="nav-label">Produtos</span>
 							</h:commandLink></li>
 
-						<li><h:commandLink
-								action="#{consultasListarBean.redirectEncomendas}">
-								<i class="fa fa-list-ol" />
-								<span class="nav-label">Encomendas</span>
+						<li rendered="#{appBean.gerente}"><h:commandLink
+								action="#{consultasListarBean.redirectFuncionarios}">
+								<i class="fa fa-users" />
+								<span class="nav-label">Funcionários</span>
 							</h:commandLink></li>
 
 						<li><h:commandLink
