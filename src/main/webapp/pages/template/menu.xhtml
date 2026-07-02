@@ -37,10 +37,10 @@
 								<span class="nav-label">Produtos</span>
 							</h:commandLink></li>
 
-						<li rendered="#{appBean.gerente}"><h:commandLink
-								action="#{consultasListarBean.redirectFuncionarios}">
+						<li><h:commandLink
+								action="#{consultasListarBean.redirectEncomendas}">
 								<i class="fa fa-users" />
-								<span class="nav-label">Funcionários</span>
+								<span class="nav-label">Encomendas</span>
 							</h:commandLink></li>
 
 						<li><h:commandLink
@@ -49,11 +49,22 @@
 								<span class="nav-label">Clientes</span>
 							</h:commandLink></li>
 
-
-						<li><h:commandLink
+						<li rendered="#{appBean.gerente}"><h:commandLink
 								action="#{consultasListarBean.redirectFuncionarios}">
 								<i class="fa fa-users" />
 								<span class="nav-label">Funcionários</span>
+							</h:commandLink></li>
+							
+							<li rendered="#{appBean.gerente}"><h:commandLink
+								action="#{consultasListarBean.redirectContratos	}">
+								<i class="fa fa-users" />
+								<span class="nav-label">Contratos</span>
+							</h:commandLink></li>
+							
+							<li rendered="#{appBean.gerente}"><h:commandLink
+								action="#{consultasListarBean.redirectRelatorios}">
+								<i class="fa fa-users" />
+								<span class="nav-label">Relatórios</span>
 							</h:commandLink></li>
 
 					</ul>
