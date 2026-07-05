@@ -37,6 +37,7 @@ public class LoginBean implements AuthenticationProvider, Serializable{
 	}
 	
 	
+	
 	public Funcionario funcExist(Funcionario func){
 		try {
 			func = loginService.verificaFuncionario(func);
