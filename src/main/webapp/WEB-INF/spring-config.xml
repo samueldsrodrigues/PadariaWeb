@@ -140,7 +140,6 @@
 			logout-success-url="/login.xhtml" invalidate-session="true" />
 	</http>
 
-
 	<bean id="customUserAuthenticationProvider"
 		class="br.com.padariaweb.bean.LoginBean" />
 

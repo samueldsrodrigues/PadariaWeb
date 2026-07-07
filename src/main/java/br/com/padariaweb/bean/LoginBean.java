@@ -36,8 +36,6 @@ public class LoginBean implements AuthenticationProvider, Serializable{
 		System.out.println("Sua senha '123' tem uma semente: " + semente + " e uma senhaHash: " + senhaHash );
 	}
 	
-	
-	
 	public Funcionario funcExist(Funcionario func){
 		try {
 			func = loginService.verificaFuncionario(func);
