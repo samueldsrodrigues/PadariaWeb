@@ -130,7 +130,7 @@
 
 		<intercept-url pattern="/pages/**" access="ROLE_GERENTE" />
 
-		<form-login  login-page="/login.xhtml"
+		<form-login login-page="/login.xhtml"
 			default-target-url="/dashboard.xhtml"
 			always-use-default-target="true"
 			authentication-failure-url="/login.xhtml?error=1"
