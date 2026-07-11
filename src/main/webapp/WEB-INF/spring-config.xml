@@ -128,7 +128,7 @@
 		<intercept-url pattern="/pages/contratos/**"
 			access="ROLE_GERENTE" />
 
-		<intercept-url pattern="/pages/**" access="ROLE_GERENTE" />
+		<intercept-url  pattern="/pages/**" access="ROLE_GERENTE" />
 
 		<form-login login-page="/login.xhtml"
 			default-target-url="/dashboard.xhtml"
