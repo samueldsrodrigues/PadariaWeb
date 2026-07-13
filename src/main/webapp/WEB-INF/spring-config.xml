@@ -137,7 +137,7 @@
 			username-parameter="formLogin:j_username"
 			password-parameter="formLogin:j_password" />
 		<logout logout-url="/logout.xhtml"
-			logout-success-url="/login.xhtml" invalidate-session="true" />
+			logout-success-url="/login.xhtml"  invalidate-session="true" />
 	</http>
 
 	<bean id="customUserAuthenticationProvider"
