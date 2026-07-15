@@ -34,9 +34,9 @@ public class EncomendaDao extends GenericoCRUDDAOJPA<Encomenda, Long> implements
 
 		if (filtro.getDtRetirada() != null)
 			c.add(Restrictions.ilike("dtRetirada", filtro.getDtRetirada()));
-		
-		if (filtro.getFkCliente() != null)
-			c.add(Restrictions.ilike("fkCliente", filtro.getFkCliente()));
+
+		if (filtro.getCliente() != null)
+			c.add(Restrictions.ilike("fkCliente", filtro.getCliente()));
 
 		if (first != null)
 			c.setFirstResult(first);
@@ -55,7 +55,5 @@ public class EncomendaDao extends GenericoCRUDDAOJPA<Encomenda, Long> implements
 
 		return c.list();
 	}
-
-	
 
 }

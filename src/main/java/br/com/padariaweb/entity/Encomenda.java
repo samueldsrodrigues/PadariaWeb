@@ -3,6 +3,7 @@ package br.com.padariaweb.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,25 +31,31 @@ public class Encomenda implements Serializable {
 	@Column(name = "valor_entrada")
 	private @Getter @Setter BigDecimal valorEntrada;
 
+	@Column(name = "dt_encomenda")
+	private @Getter @Setter Date dtEncomenda;
+	
 	@Column(name = "dt_retirada")
-	private @Getter @Setter LocalDateTime dtRetirada;
+	private @Getter @Setter Date dtRetirada;
+	
+	@Column(name = "status")
+	private @Getter @Setter String status;
+
 
 	@ManyToOne
-    @JoinColumn(name = "fk_cliente")
-	private @Getter @Setter Cliente fkCliente;
+	@JoinColumn(name = "fk_cliente")
+	private @Getter @Setter Cliente cliente;
 
 	public Encomenda() {
 	}
 
-	public Encomenda(BigDecimal valorEntrada, LocalDateTime dtRetirada, Cliente fkCliente) {
+	public Encomenda(BigDecimal valorEntrada, Date dtEncomenda, Date dtRetirada, String status, Cliente cliente) {
 		this.valorEntrada = valorEntrada;
+		this.dtEncomenda = dtEncomenda;
 		this.dtRetirada = dtRetirada;
-		this.fkCliente = fkCliente;
+		this.status = status;
+		this.cliente = cliente;
 	}
-	
-	
 
-	
 	
 	
 
