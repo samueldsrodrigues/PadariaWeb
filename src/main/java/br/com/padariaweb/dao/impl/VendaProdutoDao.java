@@ -12,37 +12,33 @@ import br.com.padariaweb.entity.VendaProduto;
 @Repository
 public class VendaProdutoDao extends GenericoCRUDDAOJPA<VendaProduto, Long> implements IVendaProdutoDao {
 
-    @SuppressWarnings("unchecked")
-    public List<VendaProduto> pesquisarVendaProduto(VendaProduto filtro, Integer first, Integer maxPerPage) {
-        Criteria c = criteria();
+	@SuppressWarnings("unchecked")
+	public List<VendaProduto> pesquisarVendaProduto(VendaProduto filtro, Integer first, Integer maxPerPage) {
+		Criteria c = criteria();
 
-        if (filtro.getSqVendaProduto() != null) {
-            c.add(Restrictions.eq("sqVendaProduto", filtro.getSqVendaProduto()));
-        }
+		if (filtro.getSqVendaProduto() != null) {
+			c.add(Restrictions.eq("sqVendaProduto", filtro.getSqVendaProduto()));
+		}
 
-        if (filtro.getProduto() != null && filtro.getProduto().getSqProduto() != null) {
-            c.createAlias("produto", "produto");
-            c.add(Restrictions.eq("produto.sqProduto", filtro.getProduto().getSqProduto()));
-        }
-        
-        if (filtro.getVenda() != null && filtro.getVenda().getSqVenda() != null) {
-            c.createAlias("venda", "venda");
-            c.add(Restrictions.eq("venda.sqVenda", filtro.getVenda().getSqVenda()));
-        }
+		if (filtro.getProduto() != null && filtro.getProduto().getSqProduto() != null) {
+			c.createAlias("produto", "produto");
+			c.add(Restrictions.eq("produto.sqProduto", filtro.getProduto().getSqProduto()));
+		}
 
-        if (first != null) {
-            c.setFirstResult(first);
-        }
+		if (filtro.getVenda() != null && filtro.getVenda().getSqVenda() != null) {
+			c.createAlias("venda", "venda");
+			c.add(Restrictions.eq("venda.sqVenda", filtro.getVenda().getSqVenda()));
+		}
 
-        if (maxPerPage != null) {
-            c.setMaxResults(maxPerPage);
-        }
+		if (first != null) {
+			c.setFirstResult(first);
+		}
 
-        return c.list();
-    }
+		if (maxPerPage != null) {
+			c.setMaxResults(maxPerPage);
+		}
 
-   
+		return c.list();
+	}
 
-
-	
 }
