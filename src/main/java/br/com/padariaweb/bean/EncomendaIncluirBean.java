@@ -181,7 +181,7 @@ public class EncomendaIncluirBean extends AbstractView implements Serializable {
 	        e.printStackTrace();
 	        addMsgError("Erro ao finalizar encomenda.");
 	        return null;
-	    }
+	    } 
 	}
 	
 	private void calcularTotal() {
