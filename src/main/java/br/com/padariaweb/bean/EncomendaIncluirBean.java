@@ -184,6 +184,7 @@ public class EncomendaIncluirBean extends AbstractView implements Serializable {
 	    } 
 	}
 	
+	
 	private void calcularTotal() {
 	    total = BigDecimal.ZERO;
 

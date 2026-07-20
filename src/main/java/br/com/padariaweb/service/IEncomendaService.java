@@ -10,6 +10,7 @@ import br.com.padariaweb.exception.ValidacaoException;
 
 public interface IEncomendaService extends IGenericoCRUDManager<Encomenda, Long> {
 
+	
 	public List<Encomenda> pesquisarEncomenda(Encomenda filtro, Integer first, Integer maxPerPage);
 
 	public List<Encomenda> pesquisarEncomenda(Encomenda filtro);
