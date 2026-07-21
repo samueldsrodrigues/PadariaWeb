@@ -194,7 +194,6 @@ public class EncomendaService extends GenericoCRUDManager<Encomenda, Long> imple
 			item.setSubtotal(subtotal);
 			total = total.add(subtotal);
 		}
-
 		return total;
 	}
 
