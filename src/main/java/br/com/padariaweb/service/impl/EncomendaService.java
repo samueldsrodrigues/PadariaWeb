@@ -176,7 +176,6 @@ public class EncomendaService extends GenericoCRUDManager<Encomenda, Long> imple
 		BigDecimal total = BigDecimal.ZERO;
 
 		for (EncomendaProduto item : itens) {
-
 			if (item == null) {
 				throw new ValidacaoException("Existe um item inválido na encomenda.");
 			}
